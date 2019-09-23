@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+
 import { NavController } from "@ionic/angular";
 
 @Component({
@@ -8,9 +9,21 @@ import { NavController } from "@ionic/angular";
 	styleUrls: ["./edit-offer.page.scss"]
 })
 export class EditOfferPage implements OnInit {
+	form: FormGroup;
 	constructor(private navctrl: NavController) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.form = new FormGroup({
+			title: new FormControl("old title", {
+				updateOn: "blur",
+				validators: [Validators.required]
+			}),
+			description: new FormControl("old description", {
+				updateOn: "blur",
+				validators: [Validators.required, Validators.maxLength(180)]
+			})
+		});
+	}
 	onSavePlace() {
 		this.navctrl.navigateBack("/places/tabs/offer");
 	}
