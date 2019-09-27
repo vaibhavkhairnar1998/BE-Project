@@ -1,27 +1,27 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 
 import { IonicModule } from "@ionic/angular";
 
-import { NewOfferPage } from "./new-offer.page";
+import { EditOfferPage } from "./edit-offer.page";
 
 const routes: Routes = [
 	{
 		path: "",
-		component: NewOfferPage
+		component: EditOfferPage
 	}
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
-		ReactiveFormsModule,
+		FormsModule,
 		IonicModule,
 		ReactiveFormsModule,
 		RouterModule.forChild(routes)
 	],
-	declarations: [NewOfferPage]
+	declarations: [EditOfferPage]
 })
-export class NewOfferPageModule {}
+export class EditOfferPageModule {}

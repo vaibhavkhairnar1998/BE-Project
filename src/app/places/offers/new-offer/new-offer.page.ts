@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-
 @Component({
 	selector: "app-new-offer",
 	templateUrl: "./new-offer.page.html",
@@ -9,7 +7,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class NewOfferPage implements OnInit {
 	form: FormGroup;
-	constructor(private navctrl: NavController) {}
+	constructor() {}
 
 	ngOnInit() {
 		this.form = new FormGroup({
@@ -30,8 +28,5 @@ export class NewOfferPage implements OnInit {
 
 	onCreateOffer() {
 		console.log(this.form);
-	}
-	onPostPlace() {
-		this.navctrl.navigateBack("/places/tabs/offer");
 	}
 }

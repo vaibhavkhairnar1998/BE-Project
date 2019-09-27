@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
 import { PlacesPage } from "./places.page";
 
 const routes: Routes = [
@@ -18,31 +19,31 @@ const routes: Routes = [
 					{
 						path: ":placeId",
 						loadChildren:
-							"./discover/places-detail/places-detail.module#PlacesDetailPageModule"
+							"./discover/place-detail/place-detail.module#PlaceDetailPageModule"
 					}
 				]
 			},
 			{
-				path: "offer",
+				path: "offers",
 				children: [
 					{
 						path: "",
-						loadChildren: "./offer/offer.module#OfferPageModule"
+						loadChildren: "./offers/offers.module#OffersPageModule"
 					},
 					{
 						path: "new",
 						loadChildren:
-							"./offer/new-offer/new-offer.module#NewOfferPageModule"
+							"./offers/new-offer/new-offer.module#NewOfferPageModule"
 					},
 					{
 						path: "edit/:placeId",
 						loadChildren:
-							"./offer/edit-offer/edit-offer.module#EditOfferPageModule"
+							"./offers/edit-offer/edit-offer.module#EditOfferPageModule"
 					},
 					{
 						path: ":placeId",
 						loadChildren:
-							"./offer/offer-booking/offer-booking.module#OfferBookingPageModule"
+							"./offers/offer-bookings/offer-bookings.module#OfferBookingsPageModule"
 					}
 				]
 			},
@@ -59,6 +60,7 @@ const routes: Routes = [
 		pathMatch: "full"
 	}
 ];
+
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]

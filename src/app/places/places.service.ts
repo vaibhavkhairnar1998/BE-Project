@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { Place } from "./place.model";
+
 @Injectable({
 	providedIn: "root"
 })
@@ -9,22 +10,22 @@ export class PlacesService {
 		new Place(
 			"p1",
 			"VKs Mansion",
-			"Jhakass Ghar hai re babu",
-			"https://images.unsplash.com/photo-1505843513577-22bb7d21e455?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1490&q=80",
+			"Jabardast Ghar Hai Re Baba",
+			"https://cdn.vox-cdn.com/thumbor/cU2eaFAkXnEEMjVyhWLRJoMRiwQ=/0x0:1600x1066/1220x813/filters:focal(642x458:898x714):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/60283807/Perry1.0.jpg",
 			150000
 		),
 		new Place(
 			"p2",
 			"APs Mansion",
-			"Jhakass Ghar hai re babu bhaiya",
-			"https://images.unsplash.com/photo-1416331108676-a22ccb276e35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1347&q=80",
+			"A mansion with Waterproof Machliya",
+			"https://image.shutterstock.com/image-photo/tropical-villa-600w-95787298.jpg",
 			360000
 		),
 		new Place(
 			"p3",
 			"GKs Mansion",
-			"Ye RAJU mera paisa de",
-			"https://thumbs.dreamstime.com/b/african-hut-9830088.jpg",
+			"Not your average city trip!",
+			"https://image.shutterstock.com/image-photo/traditional-tribal-hut-kenya-people-600w-1296137005.jpg",
 			150
 		)
 	];
@@ -34,4 +35,8 @@ export class PlacesService {
 	}
 
 	constructor() {}
+
+	getPlace(id: string) {
+		return { ...this._places.find((p) => p.id === id) };
+	}
 }

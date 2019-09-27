@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { NavController, ModalController } from "@ionic/angular";
+import { CreateBookingsComponent } from "../../../booking/create-bookings/create-bookings.component";
+import { ActivatedRoute } from "@angular/router";
+import { PlacesService } from "../../places.service";
+import { Place } from "../../place.model";
 
 @Component({
 	selector: "app-places-detail",
@@ -8,11 +11,31 @@ import { NavController } from "@ionic/angular";
 	styleUrls: ["./places-detail.page.scss"]
 })
 export class PlacesDetailPage implements OnInit {
-	constructor(private navctrl: NavController) {}
+	place: Place;
 
-	ngOnInit() {}
+	constructor(
+		private navctrl: NavController,
+		private route: ActivatedRoute,
+		private placesService: PlacesService,
+		private modalctrl: ModalController
+	) {}
+
+	ngOnInit() {
+		this.route.paramMap.subscribe((paramMap) => {
+			if (!paramMap.has("placeId")) {
+				this.navctrl.navigateBack("/places/tabs/discover");
+				return;
+			}
+			this.place = this.placesService.getPlace(paramMap.get("placeId"));
+		});
+	}
 	onBookPlace() {
 		//this.router.navigateByUrl("/places/tabs/discover");
-		this.navctrl.navigateBack("/places/tabs/discover");
+		//this.navctrl.navigateBack("/places/tabs/discover");
+		this.modalctrl
+			.create({ component: CreateBookingsComponent })
+			.then((modalEl) => {
+				modalEl.present();
+			});
 	}
 }
