@@ -7,7 +7,12 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content no-padding>
+<ion-content>
+	<ion-segment (ionChange)="onFilterUpdate($event)">
+		<ion-segment-button value="places" checked>Places</ion-segment-button>
+		<ion-segment-button value="electronics">Electronics</ion-segment-button>
+		<ion-segment-button value="automobiles">Automobiles</ion-segment-button>
+	</ion-segment>
 	<ion-grid no-padding>
 		<ion-row
 			no-padding
