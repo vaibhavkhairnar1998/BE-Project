@@ -4,6 +4,7 @@ import { MenuController } from "@ionic/angular";
 import { PlacesService } from "../places.service";
 import { Place } from "../place.model";
 import { SegmentChangeEventDetail } from "@ionic/core";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "app-discover",
@@ -12,6 +13,8 @@ import { SegmentChangeEventDetail } from "@ionic/core";
 })
 export class DiscoverPage implements OnInit {
 	loadedPlaces: Place[];
+	allPlaces: Place[];
+	private placesSub: Subscription;
 
 	constructor(
 		private placesService: PlacesService,
@@ -20,6 +23,9 @@ export class DiscoverPage implements OnInit {
 
 	ngOnInit() {
 		this.loadedPlaces = this.placesService.places;
+		this.allPlaces = this.loadedPlaces.filter(
+			(place) => place.catagory === "place"
+		);
 	}
 
 	onOpenMenu() {
@@ -27,5 +33,20 @@ export class DiscoverPage implements OnInit {
 	}
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		console.log(event.detail);
+		if (event.detail.value === "place") {
+			this.allPlaces = this.loadedPlaces.filter(
+				(place) => place.catagory === event.detail.value
+			);
+		}
+		if (event.detail.value === "electronics") {
+			this.allPlaces = this.loadedPlaces.filter(
+				(place) => place.catagory === event.detail.value
+			);
+		}
+		if (event.detail.value === "automobiles") {
+			this.allPlaces = this.loadedPlaces.filter(
+				(place) => place.catagory === event.detail.value
+			);
+		}
 	}
 }
