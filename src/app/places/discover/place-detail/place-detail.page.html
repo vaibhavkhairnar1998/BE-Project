@@ -1,12 +1,48 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ place.title }}</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button
+				defaultHref="/places/tabs/discover"
+			></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ place.title }}</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-button color="primary" margin (click)="onBookPlace()">Book</ion-button>
+<ion-content no-padding>
+	<ion-grid no-padding>
+		<ion-row>
+			<ion-col no-padding>
+				<ion-img
+					padding-top
+					[src]="place.imageUrl"
+					style="width:100%;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;"
+				></ion-img>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<p text-center>{{ place.description }}</p>
+				<p text-center>Price : {{ place.price | currency: "INR" }}</p>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-button
+		type="button"
+		color="primary"
+		margin
+		(click)="onBookPlace(place.catagory)"
+		expand="block"
+		>Book</ion-button
+	>
 </ion-content>

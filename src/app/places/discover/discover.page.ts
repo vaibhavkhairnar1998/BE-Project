@@ -24,7 +24,7 @@ export class DiscoverPage implements OnInit {
 	ngOnInit() {
 		this.loadedPlaces = this.placesService.places;
 		this.allPlaces = this.loadedPlaces.filter(
-			(place) => place.catagory === "place"
+			(place) => place.catagory === "Place"
 		);
 	}
 
@@ -33,17 +33,17 @@ export class DiscoverPage implements OnInit {
 	}
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		console.log(event.detail);
-		if (event.detail.value === "place") {
+		if (event.detail.value === "Place") {
 			this.allPlaces = this.loadedPlaces.filter(
 				(place) => place.catagory === event.detail.value
 			);
 		}
-		if (event.detail.value === "electronics") {
+		if (event.detail.value === "Electronic") {
 			this.allPlaces = this.loadedPlaces.filter(
 				(place) => place.catagory === event.detail.value
 			);
 		}
-		if (event.detail.value === "automobiles") {
+		if (event.detail.value === "Vehicle") {
 			this.allPlaces = this.loadedPlaces.filter(
 				(place) => place.catagory === event.detail.value
 			);

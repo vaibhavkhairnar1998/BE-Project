@@ -36,30 +36,25 @@ export class PlaceDetailPage implements OnInit {
 		});
 	}
 
-	onBookPlace() {
+	onBookPlace(ctgry: string) {
 		// this.router.navigateByUrl('/places/tabs/discover');
 		// this.navCtrl.navigateBack('/places/tabs/discover');
 		// this.navCtrl.pop();
-
+		console.log(ctgry);
 		this.actionSheetCtrl
 			.create({
 				header: "Choose an Action",
 				buttons: [
 					{
-						text: "Select Date",
+						text: "Book This " + ctgry,
 						handler: () => {
 							this.openBookingModal("select");
 						}
 					},
 					{
-						text: "Random Date",
-						handler: () => {
-							this.openBookingModal("random");
-						}
-					},
-					{
 						text: "Cancel",
-						role: "cancel"
+						role: "cancel",
+						cssClass: ".cancelbutton"
 					}
 				]
 			})
