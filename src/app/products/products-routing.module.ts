@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { PlacesPage } from "./places.page";
+import { ProductsPage } from "./products.page";
 
 const routes: Routes = [
 	{
 		path: "tabs",
-		component: PlacesPage,
+		component: ProductsPage,
 		children: [
 			{
 				path: "discover",
@@ -19,7 +19,7 @@ const routes: Routes = [
 					{
 						path: ":placeId",
 						loadChildren:
-							"./discover/place-detail/place-detail.module#PlaceDetailPageModule"
+							"./discover/product-detail/product-detail.module#PlaceDetailPageModule"
 					}
 				]
 			},
@@ -49,14 +49,14 @@ const routes: Routes = [
 			},
 			{
 				path: "",
-				redirectTo: "/places/tabs/discover",
+				redirectTo: "/products/tabs/discover",
 				pathMatch: "full"
 			}
 		]
 	},
 	{
 		path: "",
-		redirectTo: "/places/tabs/discover",
+		redirectTo: "/products/tabs/discover",
 		pathMatch: "full"
 	}
 ];
@@ -65,4 +65,4 @@ const routes: Routes = [
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
-export class PlacesRoutingModule {}
+export class ProductsRoutingModule {}

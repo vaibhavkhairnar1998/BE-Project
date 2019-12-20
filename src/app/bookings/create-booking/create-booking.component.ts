@@ -1,25 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, Input } from "@angular/core";
+import { ModalController } from "@ionic/angular";
 
-import { Place } from '../../places/place.model';
+import { Product } from "../../products/product.model";
 
 @Component({
-  selector: 'app-create-booking',
-  templateUrl: './create-booking.component.html',
-  styleUrls: ['./create-booking.component.scss']
+	selector: "app-create-booking",
+	templateUrl: "./create-booking.component.html",
+	styleUrls: ["./create-booking.component.scss"]
 })
 export class CreateBookingComponent implements OnInit {
-  @Input() selectedPlace: Place;
+	@Input() selectedPlace: Product;
 
-  constructor(private modalCtrl: ModalController) {}
+	constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+	ngOnInit() {}
 
-  onCancel() {
-    this.modalCtrl.dismiss(null, 'cancel');
-  }
+	onCancel() {
+		this.modalCtrl.dismiss(null, "cancel");
+	}
 
-  onBookPlace() {
-    this.modalCtrl.dismiss({ message: 'This is a dummy message!' }, 'confirm');
-  }
+	onBookPlace() {
+		this.modalCtrl.dismiss(
+			{ message: "This is a dummy message!" },
+			"confirm"
+		);
+	}
 }

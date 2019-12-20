@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuController } from "@ionic/angular";
 
-import { PlacesService } from "../places.service";
-import { Place } from "../place.model";
+import { ProductsService } from "../products.service";
+import { Product } from "../product.model";
 import { SegmentChangeEventDetail } from "@ionic/core";
 import { Subscription } from "rxjs";
 
@@ -12,18 +12,18 @@ import { Subscription } from "rxjs";
 	styleUrls: ["./discover.page.scss"]
 })
 export class DiscoverPage implements OnInit {
-	loadedPlaces: Place[];
-	allPlaces: Place[];
-	private placesSub: Subscription;
+	loadedProducts: Product[];
+	allProducts: Product[];
+	private productsSub: Subscription;
 
 	constructor(
-		private placesService: PlacesService,
+		private productsService: ProductsService,
 		private menuCtrl: MenuController
 	) {}
 
 	ngOnInit() {
-		this.loadedPlaces = this.placesService.places;
-		this.allPlaces = this.loadedPlaces.filter(
+		this.loadedProducts = this.productsService.products;
+		this.allProducts = this.loadedProducts.filter(
 			(place) => place.catagory === "Place"
 		);
 	}
@@ -34,17 +34,17 @@ export class DiscoverPage implements OnInit {
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		console.log(event.detail);
 		if (event.detail.value === "Place") {
-			this.allPlaces = this.loadedPlaces.filter(
+			this.allProducts = this.loadedProducts.filter(
 				(place) => place.catagory === event.detail.value
 			);
 		}
 		if (event.detail.value === "Electronic") {
-			this.allPlaces = this.loadedPlaces.filter(
+			this.allProducts = this.loadedProducts.filter(
 				(place) => place.catagory === event.detail.value
 			);
 		}
 		if (event.detail.value === "Vehicle") {
-			this.allPlaces = this.loadedPlaces.filter(
+			this.allProducts = this.loadedProducts.filter(
 				(place) => place.catagory === event.detail.value
 			);
 		}

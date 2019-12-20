@@ -6,22 +6,22 @@ import {
 	ActionSheetController
 } from "@ionic/angular";
 
-import { PlacesService } from "../../places.service";
-import { Place } from "../../place.model";
+import { ProductsService } from "../../products.service";
+import { Product } from "../../product.model";
 import { CreateBookingComponent } from "../../../bookings/create-booking/create-booking.component";
 
 @Component({
 	selector: "app-place-detail",
-	templateUrl: "./place-detail.page.html",
-	styleUrls: ["./place-detail.page.scss"]
+	templateUrl: "./product-detail.page.html",
+	styleUrls: ["./product-detail.page.scss"]
 })
 export class PlaceDetailPage implements OnInit {
-	place: Place;
+	place: Product;
 
 	constructor(
 		private navCtrl: NavController,
 		private route: ActivatedRoute,
-		private placesService: PlacesService,
+		private productsService: ProductsService,
 		private modalCtrl: ModalController,
 		private actionSheetCtrl: ActionSheetController
 	) {}
@@ -29,16 +29,16 @@ export class PlaceDetailPage implements OnInit {
 	ngOnInit() {
 		this.route.paramMap.subscribe((paramMap) => {
 			if (!paramMap.has("placeId")) {
-				this.navCtrl.navigateBack("/places/tabs/discover");
+				this.navCtrl.navigateBack("/products/tabs/discover");
 				return;
 			}
-			this.place = this.placesService.getPlace(paramMap.get("placeId"));
+			this.place = this.productsService.getPlace(paramMap.get("placeId"));
 		});
 	}
 
 	onBookPlace(ctgry: string) {
-		// this.router.navigateByUrl('/places/tabs/discover');
-		// this.navCtrl.navigateBack('/places/tabs/discover');
+		// this.router.navigateByUrl('/products/tabs/discover');
+		// this.navCtrl.navigateBack('/products/tabs/discover');
 		// this.navCtrl.pop();
 		console.log(ctgry);
 		this.actionSheetCtrl

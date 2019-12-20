@@ -1,4 +1,4 @@
-export class Place {
+export class Product {
 	constructor(
 		public id: string,
 		public catagory: string,

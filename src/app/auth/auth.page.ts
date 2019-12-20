@@ -20,7 +20,7 @@ export class AuthPage implements OnInit {
 
 	ngOnInit() {}
 
-	onLogin() {
+	onSubmit() {
 		this.isLoading = true;
 		this.authService.login();
 		this.loadingctrl
@@ -30,7 +30,7 @@ export class AuthPage implements OnInit {
 				setTimeout(() => {
 					this.isLoading = false;
 					loadingEl.dismiss();
-					this.router.navigateByUrl("/places/tabs/discover");
+					this.router.navigateByUrl("/products/tabs/discover");
 				}, 1500);
 			});
 	}

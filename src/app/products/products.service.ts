@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 
-import { Place } from "./place.model";
+import { Product } from "./product.model";
 
 @Injectable({
 	providedIn: "root"
 })
-export class PlacesService {
-	private _place: Place[] = [
-		new Place(
+export class ProductsService {
+	private _product: Product[] = [
+		new Product(
 			"p1",
 			"Place",
 			"VKs Mansion",
@@ -15,7 +15,7 @@ export class PlacesService {
 			"https://static2.mansionglobal.com/production/media/article-images/b094a311fb9a7f66235d42bf65bb5e31/large_01-4110-Paces-Ferry-Rd-120.jpg",
 			150000
 		),
-		new Place(
+		new Product(
 			"p2",
 			"Place",
 			"APs Mansion",
@@ -23,15 +23,23 @@ export class PlacesService {
 			"https://image.shutterstock.com/image-photo/tropical-villa-600w-95787298.jpg",
 			360000
 		),
-		new Place(
+		new Product(
 			"p3",
 			"Place",
 			"GKs Mansion",
-			"Not your average mansion!",
-			"https://image.shutterstock.com/image-photo/traditional-tribal-hut-kenya-people-600w-1296137005.jpg",
-			150
+			"Not your average Tent!",
+			"http://www.campingroadtrip.com/Portals/0/emails/newsletter/OutdoorLiving/Edition026/Lit-red-tent-in-the-snow-350x232.jpg",
+			50
 		),
-		new Place(
+		new Product(
+			"p4",
+			"Place",
+			"SJs Mansion",
+			"Not your average House!",
+			"https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60",
+			150000
+		),
+		new Product(
 			"e1",
 			"Electronic",
 			"Sony Cammera",
@@ -39,7 +47,7 @@ export class PlacesService {
 			"https://5.imimg.com/data5/XC/PF/MY-11567295/sony-a7-dslr-camera-500x500.jpg",
 			15000
 		),
-		new Place(
+		new Product(
 			"e2",
 			"Electronic",
 			"Canon Cammera",
@@ -47,7 +55,7 @@ export class PlacesService {
 			"https://cdn.thewirecutter.com/wp-content/uploads/2018/04/canon-dslrs-march-2018-2x1-lowres3496.jpg",
 			25000
 		),
-		new Place(
+		new Product(
 			"e3",
 			"Electronic",
 			"Nikon Cammera",
@@ -55,7 +63,7 @@ export class PlacesService {
 			"https://static.bhphoto.com/images/images500x500/nikon_1546b_d5500_dslr_camera_with_1482421558_1280950.jpg",
 			17000
 		),
-		new Place(
+		new Product(
 			"e4",
 			"Electronic",
 			"Kodak Cammera",
@@ -63,7 +71,7 @@ export class PlacesService {
 			"https://3.img-dpreview.com/files/p/articles/8708403693/Images/frontview-001.jpeg",
 			35000
 		),
-		new Place(
+		new Product(
 			"a1",
 			"Vehicle",
 			"La' Ferrari",
@@ -71,7 +79,7 @@ export class PlacesService {
 			"http://1.bp.blogspot.com/-bJUVMEtDcs4/Vf63lv2jfaI/AAAAAAAAAw8/h8NXO6ICvAI/s320/Screenshot_2015-09-20-21-40-38.png",
 			35000000
 		),
-		new Place(
+		new Product(
 			"a2",
 			"Vehicle",
 			"Lexus ES 300h",
@@ -79,7 +87,7 @@ export class PlacesService {
 			"https://lexusenthusiast.com/images/weblog/18-06-15-lexus-es-opening-image.jpg",
 			5500000
 		),
-		new Place(
+		new Product(
 			"a3",
 			"Vehicle",
 			"Volvo XC 90",
@@ -89,13 +97,13 @@ export class PlacesService {
 		)
 	];
 
-	get places() {
-		return [...this._place];
+	get products() {
+		return [...this._product];
 	}
 
 	constructor() {}
 
 	getPlace(id: string) {
-		return { ...this._place.find((p) => p.id === id) };
+		return { ...this._product.find((p) => p.id === id) };
 	}
 }
