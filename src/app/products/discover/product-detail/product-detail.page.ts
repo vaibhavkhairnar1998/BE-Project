@@ -32,7 +32,9 @@ export class PlaceDetailPage implements OnInit {
 				this.navCtrl.navigateBack("/products/tabs/discover");
 				return;
 			}
-			this.place = this.productsService.getPlace(paramMap.get("placeId"));
+			this.place = this.productsService.getProduct(
+				paramMap.get("placeId")
+			);
 		});
 	}
 

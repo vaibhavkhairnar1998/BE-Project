@@ -8,7 +8,91 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content text-center padding>
-	<p>{{ selectedPlace.description }}</p>
-	<ion-button color="primary" (click)="onBookPlace()">Book!</ion-button>
+<ion-content text-center padding-top>
+	<form (ngSubmit)="onBookPlace()" #f="ngForm">
+		<ion-grid no-padding>
+			<ion-row>
+				<ion-col size-sm="6" offset-sm="3">
+					<ion-item>
+						<ion-label position="floating">First Name</ion-label>
+						<ion-input
+							type="text"
+							ngModal
+							name="first-name"
+							required
+						></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size-sm="6" offset-sm="3">
+					<ion-item>
+						<ion-label position="floating">Last Name</ion-label>
+						<ion-input
+							type="text"
+							ngModal
+							name="last-name"
+							required
+						></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size-sm="6" offset-sm="3">
+					<ion-item>
+						<ion-label position="floating">Mobile Number</ion-label>
+						<ion-input
+							type="number"
+							ngModal
+							name="mobile-number"
+							required
+						></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col no-padding size-sm="6" offset-sm="3">
+					<ion-list>
+						<ion-radio-group>
+							<ion-list-header>
+								<ion-label>Gender</ion-label>
+							</ion-list-header>
+
+							<ion-item>
+								<ion-label>Male</ion-label>
+								<ion-radio
+									slot="start"
+									value="male"
+									checked
+								></ion-radio>
+							</ion-item>
+
+							<ion-item>
+								<ion-label>Female</ion-label>
+								<ion-radio
+									slot="start"
+									value="female"
+								></ion-radio>
+							</ion-item>
+
+							<ion-item>
+								<ion-label>Others</ion-label>
+								<ion-radio
+									slot="start"
+									value="others"
+								></ion-radio>
+							</ion-item>
+						</ion-radio-group>
+					</ion-list>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size-sm="6" offset-sm="3">
+					<ion-button type="submit" expand="block"
+						>Book!</ion-button
+					></ion-col
+				></ion-row
+			>
+		</ion-grid>
+	</form>
 </ion-content>

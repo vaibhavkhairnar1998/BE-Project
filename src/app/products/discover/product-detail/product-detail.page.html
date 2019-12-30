@@ -36,13 +36,15 @@
 			</ion-col>
 		</ion-row>
 	</ion-grid>
-
-	<ion-button
-		type="button"
-		color="primary"
-		margin
-		(click)="onBookPlace(place.catagory)"
-		expand="block"
-		>Book</ion-button
-	>
 </ion-content>
+<ion-footer>
+	<ion-toolbar>
+		<ion-button
+			type="button"
+			margin
+			(click)="onBookPlace(place.catagory)"
+			expand="block"
+			>Book</ion-button
+		>
+	</ion-toolbar>
+</ion-footer>
