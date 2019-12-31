@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import {
 	NavController,
@@ -9,14 +9,16 @@ import {
 import { ProductsService } from "../../products.service";
 import { Product } from "../../product.model";
 import { CreateBookingComponent } from "../../../bookings/create-booking/create-booking.component";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "app-place-detail",
 	templateUrl: "./product-detail.page.html",
 	styleUrls: ["./product-detail.page.scss"]
 })
-export class PlaceDetailPage implements OnInit {
-	place: Product;
+export class PlaceDetailPage implements OnInit, OnDestroy {
+	product: Product;
+	private productSub: Subscription;
 
 	constructor(
 		private navCtrl: NavController,
@@ -32,9 +34,11 @@ export class PlaceDetailPage implements OnInit {
 				this.navCtrl.navigateBack("/products/tabs/discover");
 				return;
 			}
-			this.place = this.productsService.getProduct(
-				paramMap.get("placeId")
-			);
+			this.productSub = this.productsService
+				.getProduct(paramMap.get("placeId"))
+				.subscribe((product) => {
+					this.product = product;
+				});
 		});
 	}
 
@@ -45,10 +49,10 @@ export class PlaceDetailPage implements OnInit {
 		console.log(ctgry);
 		this.actionSheetCtrl
 			.create({
-				header: "Choose an Action",
+				header: "Are you Sure ?",
 				buttons: [
 					{
-						text: "Book This " + ctgry,
+						text: "Want to Book This " + ctgry,
 						handler: () => {
 							this.openBookingModal("select");
 						}
@@ -70,7 +74,7 @@ export class PlaceDetailPage implements OnInit {
 		this.modalCtrl
 			.create({
 				component: CreateBookingComponent,
-				componentProps: { selectedPlace: this.place }
+				componentProps: { selectedPlace: this.product }
 			})
 			.then((modalEl) => {
 				modalEl.present();
@@ -82,5 +86,11 @@ export class PlaceDetailPage implements OnInit {
 					console.log("BOOKED!");
 				}
 			});
+	}
+
+	ngOnDestroy() {
+		if (this.productSub) {
+			this.productSub.unsubscribe();
+		}
 	}
 }

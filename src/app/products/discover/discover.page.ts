@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MenuController } from "@ionic/angular";
 
 import { ProductsService } from "../products.service";
@@ -11,7 +11,7 @@ import { Subscription } from "rxjs";
 	templateUrl: "./discover.page.html",
 	styleUrls: ["./discover.page.scss"]
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage implements OnInit, OnDestroy {
 	loadedProducts: Product[];
 	allProducts: Product[];
 	private productsSub: Subscription;
@@ -22,7 +22,12 @@ export class DiscoverPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.loadedProducts = this.productsService.products;
+		this.productsSub = this.productsService.products.subscribe(
+			(product) => {
+				this.loadedProducts = product;
+			}
+		);
+		// this.loadedProducts = this.productsService.products;
 		this.allProducts = this.loadedProducts.filter(
 			(place) => place.catagory === "Place"
 		);
@@ -43,10 +48,16 @@ export class DiscoverPage implements OnInit {
 				(place) => place.catagory === event.detail.value
 			);
 		}
-		if (event.detail.value === "Vehicle") {
+		if (event.detail.value === "Automobile") {
 			this.allProducts = this.loadedProducts.filter(
 				(place) => place.catagory === event.detail.value
 			);
+		}
+	}
+
+	ngOnDestroy() {
+		if (this.productsSub) {
+			this.productsSub.unsubscribe();
 		}
 	}
 }

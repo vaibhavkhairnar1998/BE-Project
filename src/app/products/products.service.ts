@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
-
+import { take, map } from "rxjs/operators";
 import { Product } from "./product.model";
 import { AuthService } from "../auth/auth.service";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
 	providedIn: "root"
 })
 export class ProductsService {
-	private _product: Product[] = [
+	private _product = new BehaviorSubject<Product[]>([
 		new Product(
 			"p1",
 			"Place",
@@ -91,7 +92,7 @@ export class ProductsService {
 		),
 		new Product(
 			"a1",
-			"Vehicle",
+			"Automobile",
 			"La' Ferrari",
 			"Not your average sports car!",
 			"http://1.bp.blogspot.com/-bJUVMEtDcs4/Vf63lv2jfaI/AAAAAAAAAw8/h8NXO6ICvAI/s320/Screenshot_2015-09-20-21-40-38.png",
@@ -100,7 +101,7 @@ export class ProductsService {
 		),
 		new Product(
 			"a2",
-			"Vehicle",
+			"Automobile",
 			"Lexus ES 300h",
 			"Not your average luxury Sedan!",
 			"https://lexusenthusiast.com/images/weblog/18-06-15-lexus-es-opening-image.jpg",
@@ -109,23 +110,28 @@ export class ProductsService {
 		),
 		new Product(
 			"a3",
-			"Vehicle",
+			"Automobile",
 			"Volvo XC 90",
 			"Not your average luxury SUV!",
 			"https://d0727dbddcb0f37a2867-55aeed0264ba8e79218119aec163ef5f.ssl.cf1.rackcdn.com/YV4A22NL9K1072600/dd627767e0240f1804304f283a1172d9.jpeg",
 			3500000,
 			"abc"
 		)
-	];
+	]);
 
 	get products() {
-		return [...this._product];
+		return this._product.asObservable();
 	}
 
 	constructor(private authService: AuthService) {}
 
 	getProduct(id: string) {
-		return { ...this._product.find((p) => p.id === id) };
+		return this._product.pipe(
+			take(1),
+			map((product) => {
+				return { ...product.find((p) => p.id === id) };
+			})
+		);
 	}
 
 	addProduct(
@@ -143,7 +149,8 @@ export class ProductsService {
 			price,
 			this.authService.userId
 		);
-		this._product.push(newProduct);
-		console.log(this._product);
+		this._product.pipe(take(1)).subscribe((product) => {
+			this._product.next(product.concat(newProduct));
+		});
 	}
 }

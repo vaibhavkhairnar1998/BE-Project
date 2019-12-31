@@ -5,7 +5,7 @@
 				defaultHref="/products/tabs/discover"
 			></ion-back-button>
 		</ion-buttons>
-		<ion-title>{{ place.title }}</ion-title>
+		<ion-title>{{ product.title }}</ion-title>
 	</ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
 			<ion-col no-padding>
 				<ion-img
 					padding-top
-					[src]="place.imageUrl"
+					[src]="product.imageUrl"
 					style="width:100%;
           display: -webkit-box;
           display: -webkit-flex;
@@ -31,8 +31,8 @@
 		</ion-row>
 		<ion-row>
 			<ion-col>
-				<p text-center>{{ place.description }}</p>
-				<p text-center>Price : {{ place.price | currency: "INR" }}</p>
+				<p text-center>{{ product.description }}</p>
+				<p text-center>Price : {{ product.price | currency: "INR" }}</p>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
@@ -42,7 +42,7 @@
 		<ion-button
 			type="button"
 			margin
-			(click)="onBookPlace(place.catagory)"
+			(click)="onBookPlace(product.catagory)"
 			expand="block"
 			>Book</ion-button
 		>
