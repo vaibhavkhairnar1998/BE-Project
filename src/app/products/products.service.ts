@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { take, map } from "rxjs/operators";
+import { take, map, tap, delay } from "rxjs/operators";
 import { Product } from "./product.model";
 import { AuthService } from "../auth/auth.service";
 import { BehaviorSubject } from "rxjs";
@@ -149,8 +149,43 @@ export class ProductsService {
 			price,
 			this.authService.userId
 		);
-		this._product.pipe(take(1)).subscribe((product) => {
-			this._product.next(product.concat(newProduct));
-		});
+		return this._product.pipe(
+			take(1),
+			delay(1000),
+			tap((product) => {
+				setTimeout(() => {
+					this._product.next(product.concat(newProduct));
+				}, 1000);
+			})
+		);
+	}
+
+	updateProduct(
+		productId: string,
+		title: string,
+		description: string,
+		price: number
+	) {
+		return this._product.pipe(
+			take(1),
+			delay(1000),
+			tap((product) => {
+				const updatedProductIndex = product.findIndex(
+					(pl) => pl.id === productId
+				);
+				const updatedProduct = [...product];
+				const oldProduct = updatedProduct[updatedProductIndex];
+				updatedProduct[updatedProductIndex] = new Product(
+					oldProduct.id,
+					oldProduct.catagory,
+					title,
+					description,
+					oldProduct.imageUrl,
+					price,
+					oldProduct.userId
+				);
+				this._product.next(updatedProduct);
+			})
+		);
 	}
 }

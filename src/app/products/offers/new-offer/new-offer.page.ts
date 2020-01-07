@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ProductsService } from "../../products.service";
+import { LoadingController } from "@ionic/angular";
+
 @Component({
 	selector: "app-new-offer",
 	templateUrl: "./new-offer.page.html",
@@ -8,7 +10,10 @@ import { ProductsService } from "../../products.service";
 })
 export class NewOfferPage implements OnInit {
 	form: FormGroup;
-	constructor(private productService: ProductsService) {}
+	constructor(
+		private productService: ProductsService,
+		private loaderCtrl: LoadingController
+	) {}
 
 	ngOnInit() {
 		this.form = new FormGroup({
@@ -32,9 +37,7 @@ export class NewOfferPage implements OnInit {
 	}
 
 	getCategory(event) {
-		console.log(event.target.value);
 		const Value = event.target.value;
-		console.log(Value);
 		this.form.get("category").setValue(Value);
 	}
 
@@ -42,18 +45,23 @@ export class NewOfferPage implements OnInit {
 		if (!this.form.valid) {
 			return;
 		}
-		console.log(
-			this.form.value.category,
-			this.form.value.title,
-			this.form.value.description,
-			+this.form.value.price
-		);
-
-		this.productService.addProduct(
-			this.form.value.category,
-			this.form.value.title,
-			this.form.value.description,
-			+this.form.value.price //+ sign to convert string into number
-		);
+		this.loaderCtrl
+			.create({
+				message: "Creating New Place..."
+			})
+			.then((loadingEl) => {
+				loadingEl.present();
+				this.productService
+					.addProduct(
+						this.form.value.category,
+						this.form.value.title,
+						this.form.value.description,
+						+this.form.value.price //+ sign to convert string into number
+					)
+					.subscribe(() => {
+						loadingEl.dismiss();
+						this.form.reset();
+					});
+			});
 	}
 }

@@ -1,8 +1,14 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
 import { Product } from "../../products/product.model";
-import { NgForm, FormGroup } from "@angular/forms";
+import {
+	FormsModule,
+	FormGroup,
+	FormControl,
+	Validators,
+	NgForm
+} from "@angular/forms";
 
 @Component({
 	selector: "app-create-booking",
@@ -11,18 +17,33 @@ import { NgForm, FormGroup } from "@angular/forms";
 })
 export class CreateBookingComponent implements OnInit {
 	@Input() selectedPlace: Product;
-	form: FormGroup;
+	form: FormsModule;
 	constructor(private modalCtrl: ModalController) {}
 
 	ngOnInit() {}
+	private Value: String;
+
+	getGender(event) {
+		this.Value = event.target.value;
+		console.log(this.Value);
+	}
 
 	onCancel() {
 		this.modalCtrl.dismiss(null, "cancel");
 	}
 
-	onBookPlace() {
+	onBookPlace(f: NgForm) {
+		console.log("onbookplace", this.Value);
+
 		this.modalCtrl.dismiss(
-			{ message: "This is a dummy message!" },
+			{
+				bookingData: {
+					firstName: f.value["firstName"],
+					lastName: f.value["lastName"],
+					mobileNumber: +f.value["mobileNumber"],
+					gender: this.Value
+				}
+			},
 			"confirm"
 		);
 	}
