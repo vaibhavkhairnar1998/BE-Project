@@ -26,9 +26,18 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-button {
-	--background: linear-gradient(
-		to right,
-		rgb(30, 189, 241),
-		rgb(57, 57, 240)
-	);
+	--background: linear-gradient(315deg, #81bffd 0%, #037ade 74%);
+}
+ion-footer ion-toolbar {
+	--background: none;
+}
+
+ion-segment-button {
+	--color: rgba(255, 255, 255, 0.6);
+	--background: var(--ion-color-primary);
+	--background-checked: var(--ion-color-primary);
+	--color-checked: white;
+}
+ion-thumbnail {
+	--border-radius: 16%;
 }

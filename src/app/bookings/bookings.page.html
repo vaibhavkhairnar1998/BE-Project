@@ -9,16 +9,51 @@
 
 <ion-content>
 	<ion-grid>
-		<ion-row>
-			<ion-col size-md="6" offset-md="3">
+		<ion-row align-items-center>
+			<ion-col
+				size-md="6"
+				offset-md="3"
+				*ngIf="!loadedBookings || loadedBookings.length <= 0"
+				text-center
+				padding
+			>
+				You dont have any current Booking Yet !</ion-col
+			>
+			<ion-col
+				size-md="6"
+				offset-md="3"
+				*ngIf="loadedBookings && loadedBookings.length > 0"
+			>
 				<ion-list>
 					<ion-item-sliding
 						*ngFor="let booking of loadedBookings"
 						#slidingBooking
 					>
 						<ion-item>
+							<ion-thumbnail slot="start">
+								<ion-img [src]="booking.imageUrl"></ion-img>
+							</ion-thumbnail>
 							<ion-label>
-								<h5>{{ booking.placeTitle }}</h5>
+								<h2>{{ booking.placeTitle }}</h2>
+								<p>
+									Status :
+									<ion-chip outline color="success">
+										<ion-icon name="checkmark"></ion-icon>
+										<ion-label>Booked</ion-label>
+									</ion-chip>
+								</p>
+								<p>
+									<ion-chip outline color="warning">
+										<ion-icon name="time"></ion-icon>
+										<ion-label>Pending</ion-label>
+									</ion-chip>
+								</p>
+								<p>
+									<ion-chip outline color="danger">
+										<ion-icon name="close"></ion-icon>
+										<ion-label>Denied</ion-label>
+									</ion-chip>
+								</p>
 							</ion-label>
 						</ion-item>
 						<ion-item-options>

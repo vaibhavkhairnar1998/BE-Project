@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
 	<ion-toolbar>
 		<ion-buttons slot="start">
 			<ion-back-button
@@ -13,10 +13,10 @@
 	<ion-grid no-padding>
 		<ion-row>
 			<ion-col no-padding>
-				<ion-img
-					padding-top
-					[src]="product.imageUrl"
-					style="width:100%;
+				<ion-card>
+					<ion-img
+						[src]="product.imageUrl"
+						style="width:100%;
           display: -webkit-box;
           display: -webkit-flex;
           display: -ms-flexbox;
@@ -26,7 +26,8 @@
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;"
-				></ion-img>
+					></ion-img>
+				</ion-card>
 			</ion-col>
 		</ion-row>
 		<ion-row>
@@ -37,10 +38,9 @@
 		</ion-row>
 	</ion-grid>
 </ion-content>
-<ion-footer no-border no-margin>
+<ion-footer *ngIf="isBookable" no-border no-margin>
 	<ion-toolbar no-paddding no-margin>
 		<ion-button
-			no-margin
 			type="button"
 			(click)="onBookPlace(product.catagory)"
 			expand="block"
