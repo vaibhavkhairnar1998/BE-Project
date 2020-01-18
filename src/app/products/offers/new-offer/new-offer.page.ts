@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ProductsService } from "../../products.service";
 import { LoadingController } from "@ionic/angular";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-new-offer",
@@ -12,7 +13,8 @@ export class NewOfferPage implements OnInit {
 	form: FormGroup;
 	constructor(
 		private productService: ProductsService,
-		private loaderCtrl: LoadingController
+		private loaderCtrl: LoadingController,
+		private router: Router
 	) {}
 
 	ngOnInit() {
@@ -61,6 +63,7 @@ export class NewOfferPage implements OnInit {
 					.subscribe(() => {
 						loadingEl.dismiss();
 						this.form.reset();
+						this.router.navigate(["/products/tabs/offers"]);
 					});
 			});
 	}

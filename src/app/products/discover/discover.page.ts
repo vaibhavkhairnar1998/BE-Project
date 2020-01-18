@@ -29,7 +29,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
 		);
 		// this.loadedProducts = this.productsService.products;
 		this.allProducts = this.loadedProducts.filter(
-			(place) => place.catagory === "Place"
+			(place) => place.category === "Place"
 		);
 	}
 
@@ -40,17 +40,17 @@ export class DiscoverPage implements OnInit, OnDestroy {
 		console.log(event.detail);
 		if (event.detail.value === "Place") {
 			this.allProducts = this.loadedProducts.filter(
-				(place) => place.catagory === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 		if (event.detail.value === "Electronic") {
 			this.allProducts = this.loadedProducts.filter(
-				(place) => place.catagory === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 		if (event.detail.value === "Automobile") {
 			this.allProducts = this.loadedProducts.filter(
-				(place) => place.catagory === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 	}

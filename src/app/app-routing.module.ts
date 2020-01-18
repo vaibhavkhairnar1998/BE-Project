@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AuthGuard } from "./auth/auth.guard";
-import { AuthService } from "./auth/auth.service";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "products", pathMatch: "full" },
@@ -16,10 +15,6 @@ const routes: Routes = [
 		path: "bookings",
 		loadChildren: "./bookings/bookings.module#BookingsPageModule",
 		canLoad: [AuthGuard]
-	},
-	{
-		path: "signup",
-		loadChildren: "./auth/signup/signup.module#SignupPageModule"
 	}
 ];
 
