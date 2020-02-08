@@ -1,7 +1,7 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Project",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www"
+	"appId": "io.ionic.starter",
+	"appName": "AssetEra",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www"
 }

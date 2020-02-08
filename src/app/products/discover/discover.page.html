@@ -13,15 +13,23 @@
 		<ion-row>
 			<ion-col no-padding>
 				<ion-segment (ionChange)="onFilterUpdate($event)">
-					<ion-segment-button value="Place" checked
-						>Places</ion-segment-button
+					<ion-segment-button
+						style="--padding-start: 25px ;--padding-end:10px"
+						value="Place"
+						checked
 					>
-					<ion-segment-button value="Electronic"
+						Places</ion-segment-button
+					>
+					<ion-segment-button
+						style="--padding-start:10px; --padding-end:10px;"
+						value="Electronic"
 						>Electronics</ion-segment-button
 					>
-					<ion-segment-button value="Automobile"
-						>Automobiles</ion-segment-button
-					>
+					<ion-segment-button
+						style="--padding-end: 25px; --padding-start:10px"
+						value="Automobile"
+						>Automobiles
+					</ion-segment-button>
 				</ion-segment>
 			</ion-col>
 		</ion-row>
@@ -30,11 +38,7 @@
 
 <ion-content>
 	<ion-grid no-padding>
-		<ion-row
-			no-padding
-			*ngFor="let place of allProducts"
-			[routerLink]="['/', 'products', 'tabs', 'discover', place.id]"
-		>
+		<ion-row no-padding *ngFor="let place of allProducts">
 			<ion-col size="12" size-sm="8" offset-sm="2">
 				<ion-card
 					[routerLink]="['/', 'products', 'tabs', 'discover', place.id]"

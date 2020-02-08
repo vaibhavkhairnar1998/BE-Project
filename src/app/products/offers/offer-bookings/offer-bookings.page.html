@@ -1,17 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/products/tabs/offers"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ place.title }}</ion-title>
-  </ion-toolbar>
+<ion-header no-border>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button
+				defaultHref="/products/tabs/offers"
+			></ion-back-button>
+		</ion-buttons>
+		<ion-title>Preview</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-button
-    margin
-    color="primary"
-    [routerLink]="['/', 'products', 'tabs', 'offers', 'edit', place.id]"
-    >Edit</ion-button
-  >
+<ion-content no-padding>
+	<ion-grid no-padding>
+		<ion-row>
+			<ion-col no-padding>
+				<ion-card>
+					<ion-img
+						[src]="product.imageUrl"
+						style="width:100%;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;"
+					></ion-img>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<p text-center>{{ product.description }}</p>
+				<p text-center>Price : {{ product.price | currency: "INR" }}</p>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 </ion-content>
+<ion-footer no-border no-margin>
+	<ion-toolbar no-paddding no-margin>
+		<ion-button type="button" (click)="onEdit(product.id)" expand="block"
+			>Edit</ion-button
+		>
+	</ion-toolbar>
+</ion-footer>

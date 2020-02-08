@@ -1,0 +1,22 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>{{ product.title }}</ion-title>
+		<ion-buttons slot="start">
+			<ion-back-button
+				defaultHref="/products/tabs/requests"
+			></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<h1>Do You want to accept this request?</h1>
+	<div text-right>
+		<ion-button color="success" fill="clear" size="small"
+			>Accept</ion-button
+		>
+		<ion-button color="danger" fill="outline" size="small"
+			>Decline</ion-button
+		>
+	</div>
+</ion-content>

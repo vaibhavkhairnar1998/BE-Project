@@ -51,9 +51,25 @@ const routes: Routes = [
 				path: "",
 				redirectTo: "/products/tabs/discover",
 				pathMatch: "full"
+			},
+			{
+				path: "requests",
+				children: [
+					{
+						path: "",
+						loadChildren:
+							"./requests/requests.module#RequestsPageModule"
+					},
+					{
+						path: ":placeId",
+						loadChildren:
+							"./requests/create-request/create-request.module#CreateRequestPageModule"
+					}
+				]
 			}
 		]
 	},
+
 	{
 		path: "",
 		redirectTo: "/products/tabs/discover",

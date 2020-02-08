@@ -25,7 +25,6 @@ export class CreateBookingComponent implements OnInit {
 
 	getGender(event) {
 		this.Value = event.target.value;
-		console.log(this.Value);
 	}
 
 	onCancel() {
@@ -33,8 +32,6 @@ export class CreateBookingComponent implements OnInit {
 	}
 
 	onBookPlace(f: NgForm) {
-		console.log("onbookplace", this.Value);
-
 		this.modalCtrl.dismiss(
 			{
 				bookingData: {

@@ -16,7 +16,7 @@ export class ProductsService {
 			"The Great Mansion",
 			"https://static2.mansionglobal.com/production/media/article-images/b094a311fb9a7f66235d42bf65bb5e31/large_01-4110-Paces-Ferry-Rd-120.jpg",
 			150000,
-			"abc",
+			"xyz",
 			false
 		),
 		new Product(

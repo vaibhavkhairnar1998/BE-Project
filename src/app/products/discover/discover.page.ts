@@ -37,7 +37,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
 		this.menuCtrl.toggle();
 	}
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
-		console.log(event.detail);
+		// console.log(event.detail);
 		if (event.detail.value === "Place") {
 			this.allProducts = this.loadedProducts.filter(
 				(place) => place.category === event.detail.value

@@ -25,6 +25,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@font-face {
+	font-family: Montserrat;
+	src: url("../src/assets/fonts/Montserrat-Regular.ttf");
+}
+:root {
+	--ion-font-family: Montserrat;
+}
+
 ion-button {
 	--background: linear-gradient(315deg, #81bffd 0%, #037ade 74%);
 }

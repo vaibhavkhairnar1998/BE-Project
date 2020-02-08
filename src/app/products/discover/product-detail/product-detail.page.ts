@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import {
 	NavController,
 	ModalController,
@@ -27,6 +27,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
 	constructor(
 		private navCtrl: NavController,
 		private route: ActivatedRoute,
+		private router: Router,
 		private productsService: ProductsService,
 		private modalCtrl: ModalController,
 		private actionSheetCtrl: ActionSheetController,
@@ -50,12 +51,21 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
 				});
 		});
 	}
+	onEdit(offerId: String) {
+		this.router.navigate([
+			"/",
+			"products",
+			"tabs",
+			"offers",
+			"edit",
+			offerId
+		]);
+	}
 
 	onBookPlace(ctgry: string) {
 		// this.router.navigateByUrl('/products/tabs/discover');
 		// this.navCtrl.navigateBack('/products/tabs/discover');
 		// this.navCtrl.pop();
-		console.log(ctgry);
 		this.actionSheetCtrl
 			.create({
 				header: "Are you Sure ?",
@@ -79,7 +89,6 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
 	}
 
 	openBookingModal(mode: "select" | "random") {
-		console.log(mode);
 		this.modalCtrl
 			.create({
 				component: CreateBookingComponent,

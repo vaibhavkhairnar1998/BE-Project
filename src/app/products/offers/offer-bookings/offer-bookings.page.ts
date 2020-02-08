@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
 
 import { Product } from "../../product.model";
@@ -18,7 +18,8 @@ export class OfferBookingsPage implements OnInit, OnDestroy {
 	constructor(
 		private route: ActivatedRoute,
 		private navCtrl: NavController,
-		private productsService: ProductsService
+		private productsService: ProductsService,
+		private router: Router
 	) {}
 
 	ngOnInit() {
@@ -33,6 +34,16 @@ export class OfferBookingsPage implements OnInit, OnDestroy {
 					this.product = product;
 				});
 		});
+	}
+	onEdit(offerId: String) {
+		this.router.navigate([
+			"/",
+			"products",
+			"tabs",
+			"offers",
+			"edit",
+			offerId
+		]);
 	}
 
 	ngOnDestroy() {

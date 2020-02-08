@@ -49,51 +49,42 @@ export class OffersPage implements OnInit, OnDestroy {
 		});
 	}
 
-	onEdit(offerId: String, slidingItem: IonItemSliding) {
-		slidingItem.close();
-		this.router.navigate([
-			"/",
-			"products",
-			"tabs",
-			"offers",
-			"edit",
-			offerId
-		]);
-		console.log("Edting Offer ", offerId);
-	}
-
-	async onDelete(offerId: String, slidingItem: IonItemSliding) {
+	onDelete(offerId: String, slidingItem: IonItemSliding) {
 		slidingItem.close();
 
-		const alert = await this.alertController.create({
-			header: "Are You Sure ?",
-			message: "Want To Delete This Offer",
-			buttons: [
-				{
-					text: "Cancel",
-					role: "cancel",
-					handler: (blah) => {}
-				},
-				{
-					text: "Delete",
-					handler: () => {
-						console.log("Confirm Okay");
-						this.loadingCtrl
-							.create({ message: "Cancelling Your Booking..." })
-							.then((loadingEl) => {
-								loadingEl.present();
-								this.productsService
-									.deleteProduct(offerId)
-									.subscribe(() => {
-										loadingEl.dismiss();
-									});
-							});
+		this.alertController
+			.create({
+				header: "Are You Sure ?",
+				message: "Want To Delete This Offer",
+				buttons: [
+					{
+						text: "Cancel",
+						role: "cancel",
+						handler: (blah) => {}
+					},
+					{
+						text: "Delete",
+						handler: () => {
+							console.log("Confirm Okay");
+							this.loadingCtrl
+								.create({
+									message: "Cancelling Your Booking..."
+								})
+								.then((loadingEl) => {
+									loadingEl.present();
+									this.productsService
+										.deleteProduct(offerId)
+										.subscribe(() => {
+											loadingEl.dismiss();
+										});
+								});
+						}
 					}
-				}
-			]
-		});
-
-		await alert.present();
+				]
+			})
+			.then((alertEl) => {
+				alertEl.present();
+			});
 	}
 
 	ngOnDestroy() {

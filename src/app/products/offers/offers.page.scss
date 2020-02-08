@@ -1,4 +1,12 @@
 ion-item {
-	--inner-padding-top: 3px;
-	--inner-padding-bottom: 3px;
+	--inner-padding-top: 4px;
+	--inner-padding-bottom: 4px;
+}
+
+.alertCancel {
+	--background: red;
+}
+
+ion-alert {
+	--background: red;
 }

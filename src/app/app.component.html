@@ -1,9 +1,24 @@
 <ion-app>
 	<ion-menu side="start">
 		<ion-header>
-			<ion-toolbar>
+			<ion-toolbar style="height :20vh">
+				<ion-avatar
+					style="margin:10px 0px 0px 20px; height:60px; width:60px;"
+					class="avatar"
+				>
+					<img src="../../assets/default/default-profile.png" />
+				</ion-avatar>
+
 				<ion-title>
-					BSR
+					<h5 no-margin style="padding-top: 10px;">
+						Baburao Ganpatrao Apte
+					</h5>
+					<h6
+						no-margin
+						style="padding-top: 6px;color: rgba(255, 255, 255, 0.6)"
+					>
+						@rakhTeriMaaaKiiiiiRakh
+					</h6>
 				</ion-title>
 			</ion-toolbar>
 		</ion-header>
@@ -11,31 +26,19 @@
 		<ion-content>
 			<ion-list>
 				<ion-menu-toggle>
-					<ion-item lines="full">
+					<ion-item lines="none" routerLink="/myprofile">
 						<ion-icon name="person" slot="start"></ion-icon>
 						<ion-label>My Profile</ion-label>
 					</ion-item>
 				</ion-menu-toggle>
 				<ion-menu-toggle>
 					<ion-item lines="none" routerLink="/products/tabs/discover">
-						<ion-icon name="business" slot="start"></ion-icon>
-						<ion-label>Discover Places</ion-label>
+						<ion-icon name="search" slot="start"></ion-icon>
+						<ion-label>Discover Assets</ion-label>
 					</ion-item>
 				</ion-menu-toggle>
 				<ion-menu-toggle>
-					<ion-item lines="none" routerLink="/products/tabs/discover">
-						<ion-icon name="desktop" slot="start"></ion-icon>
-						<ion-label>Discover Electronics</ion-label>
-					</ion-item>
-				</ion-menu-toggle>
-				<ion-menu-toggle>
-					<ion-item lines="full" routerLink="/products/tabs/discover">
-						<ion-icon name="car" slot="start"></ion-icon>
-						<ion-label>Discover Automobiles</ion-label>
-					</ion-item>
-				</ion-menu-toggle>
-				<ion-menu-toggle>
-					<ion-item lines="full" routerLink="/bookings">
+					<ion-item lines="none" routerLink="/bookings">
 						<ion-icon
 							name="checkbox-outline"
 							slot="start"
