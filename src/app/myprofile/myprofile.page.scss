@@ -1,5 +1,24 @@
 .avatars {
-    margin: auto;
-    width : 100px;
-    height : 100px;
+	margin: auto;
+	width: 150px;
+	height: 150px;
+}
+
+div {
+	height: 45px;
+	width: 45px;
+	background: var(--ion-color-tertiary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 5px;
+	left: 200px;
+}
+ion-icon {
+	// justify-content: center;
+	height: 23px;
+	width: 23px;
+	color: var(--ion-color-primary-contrast);
 }

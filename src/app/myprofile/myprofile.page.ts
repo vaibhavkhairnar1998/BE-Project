@@ -13,15 +13,15 @@ export class MyprofilePage implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.form = new FormGroup({
-			name: new FormControl("Abhi patel", {
+			name: new FormControl("Raju (ITUS)", {
 				updateOn: "change",
 				validators: [Validators.required]
 			}),
-			email: new FormControl("abhi@gmail.com", {
+			email: new FormControl("paisadouble@lakshmichitfund.com", {
 				updateOn: "change",
 				validators: [Validators.required]
 			}),
-			number: new FormControl("9158546322", {
+			number: new FormControl("4204204200", {
 				updateOn: "change",
 				validators: [
 					Validators.required,
@@ -31,5 +31,9 @@ export class MyprofilePage implements OnInit, OnDestroy {
 			})
 		});
 	}
+	onEditImg(event: Event) {
+		console.log(event);
+	}
+
 	ngOnDestroy() {}
 }

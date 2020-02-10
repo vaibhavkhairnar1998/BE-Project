@@ -1,7 +1,17 @@
 #notifications-badge {
-    background-color:primary;
-    position: absolute;
-    top: 21px;
-    right: 21px;
-    border-radius: 100%;
+	background-color: primary;
+	position: absolute;
+	top: 21px;
+	right: 21px;
+	border-radius: 100%;
+}
+ion-item div {
+	height: 13px;
+	width: 13px;
+	background: var(--ion-color-secondary);
+
+	border-radius: 50%;
+	position: absolute;
+	top: 3px;
+	left: 66px;
 }

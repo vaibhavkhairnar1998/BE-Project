@@ -10,9 +10,12 @@
 <ion-content>
 	<form [formGroup]="form">
 		<ion-grid>
-			<ion-row align-items-center style="height: 20vh" padding-horizontal>
+			<ion-row align-items-center style="height: 25vh" padding-horizontal>
 				<ion-col size-sm="6" offset-sm="3">
 					<ion-avatar class="avatars">
+						<div (click)="onEditImg($event)">
+							<ion-icon name="camera" slot="icon-only"></ion-icon>
+						</div>
 						<img
 							src="misplaced.png"
 							onerror="this.src='../../assets/default/default-profile.png'"
@@ -54,13 +57,15 @@
 							formControlName="number"
 						></ion-input>
 					</ion-item>
-					<div margin-vertical text-center>
-						<ion-button
-							expand="block"
-							[routerLink]="['/', 'products', 'tabs', 'discover']"
-							>Save</ion-button
-						>
-					</div>
+				</ion-col>
+			</ion-row>
+			<ion-row align-items-center padding-horizontal>
+				<ion-col style="padding-top: 32px;">
+					<ion-button
+						expand="block"
+						[routerLink]="['/', 'products', 'tabs', 'discover']"
+						>Save</ion-button
+					>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
