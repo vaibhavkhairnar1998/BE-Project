@@ -1,58 +1,64 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
-import { ViewChildren, QueryList } from "@angular/core";
+import { Component, OnInit, ANALYZE_FOR_ENTRY_COMPONENTS } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoadingController, AlertController } from '@ionic/angular';
 
-import { Platform, IonRouterOutlet, AlertController } from "@ionic/angular";
-
-import { AuthService } from "./auth.service";
-import { LoadingController } from "@ionic/angular";
+import { AuthService } from './auth.service';
 
 @Component({
-	selector: "app-auth",
-	templateUrl: "./auth.page.html",
-	styleUrls: ["./auth.page.scss"]
+	selector: 'app-auth',
+	templateUrl: './auth.page.html',
+	styleUrls: ['./auth.page.scss']
 })
-export class AuthPage implements OnInit, OnDestroy {
+export class AuthPage implements OnInit {
 	isLoading = false;
-	backButtonSubscription;
-	@ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+	form: FormGroup;
 
 	constructor(
 		private authService: AuthService,
 		private router: Router,
 		private loadingctrl: LoadingController,
-		private platform: Platform,
-		public alertController: AlertController
+		private alertCtrl: AlertController
 	) {}
 
 	ngOnInit() {
-		if (this.authService.userIsAuthenticated) {
-			this.router.navigateByUrl("/products/tabs/discover");
-		}
-	}
-
-	ngAfterViewInit() {
-		this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-			navigator["app"].exitApp();
+		this.form = new FormGroup({
+			email: new FormControl(null, {
+				updateOn: 'change',
+				validators: [Validators.required, Validators.email]
+			}),
+			password: new FormControl(null, {
+				updateOn: 'change',
+				validators: [Validators.required]
+			})
 		});
 	}
 
 	onSubmit() {
-		this.isLoading = true;
-		this.authService.login();
 		this.loadingctrl
-			.create({ keyboardClose: true, message: "Logging In..." })
-			.then((loadingEl) => {
+			.create({ keyboardClose: true, message: 'Logging In...' })
+			.then(loadingEl => {
 				loadingEl.present();
-				setTimeout(() => {
-					this.isLoading = false;
-					loadingEl.dismiss();
-					this.router.navigateByUrl("/products/tabs/discover");
-				}, 1500);
+				this.authService
+					.login(this.form.value.email, this.form.value.password)
+					.subscribe(
+						resData => {
+							loadingEl.dismiss();
+							this.router.navigateByUrl('/products/tabs/discover');
+						},
+						err => {
+							loadingEl.dismiss();
+							this.alertCtrl
+								.create({
+									header: err.error.error.message,
+									message: 'Could not found a user with given credentials.',
+									buttons: ['Okay']
+								})
+								.then(alertEl => {
+									alertEl.present();
+								});
+						}
+					);
 			});
-	}
-
-	ngOnDestroy() {
-		this.backButtonSubscription.unsubscribe();
 	}
 }

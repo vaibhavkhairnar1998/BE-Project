@@ -1,16 +1,17 @@
 <ion-header no-border>
 	<ion-toolbar>
 		<ion-buttons slot="start">
-			<ion-back-button
-				defaultHref="/products/tabs/discover"
-			></ion-back-button>
+			<ion-back-button defaultHref="/products/tabs/discover"></ion-back-button>
 		</ion-buttons>
-		<ion-title>{{ product.title }}</ion-title>
+		<ion-title>{{ productTitle }}</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content no-padding>
-	<ion-grid no-padding>
+	<div *ngIf="isLoading" text-center>
+		<ion-spinner color="primary"></ion-spinner>
+	</div>
+	<ion-grid no-padding *ngIf="!isLoading">
 		<ion-row>
 			<ion-col no-padding>
 				<ion-card>
@@ -38,6 +39,7 @@
 		</ion-row>
 	</ion-grid>
 </ion-content>
+
 <ion-footer no-border no-margin>
 	<ion-toolbar no-paddding no-margin>
 		<ion-button

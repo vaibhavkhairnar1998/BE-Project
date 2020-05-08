@@ -1,18 +1,18 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
-import { NewOfferPage } from "./new-offer.page";
-import { SharedModule } from "../../../shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { NewOfferPage } from './new-offer.page';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [
 	{
-		path: "",
-		component: NewOfferPage
-	}
+		path: '',
+		component: NewOfferPage,
+	},
 ];
 
 @NgModule({
@@ -21,8 +21,8 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		IonicModule,
 		RouterModule.forChild(routes),
-		SharedModule
+		SharedModule,
 	],
-	declarations: [NewOfferPage]
+	declarations: [NewOfferPage],
 })
 export class NewOfferPageModule {}

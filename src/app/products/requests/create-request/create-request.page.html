@@ -1,18 +1,45 @@
+<div *ngIf="isLoading" text-center>
+	<ion-spinner color="primary"></ion-spinner>
+</div>
+
 <ion-header>
 	<ion-toolbar>
-		<ion-title>{{ product.title }}</ion-title>
+		<ion-title>{{ productTitle }}</ion-title>
 		<ion-buttons slot="start">
-			<ion-back-button
-				defaultHref="/products/tabs/requests"
-			></ion-back-button>
+			<ion-back-button defaultHref="/products/tabs/requests"></ion-back-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 	<ion-grid no-padding>
 		<ion-row no-padding>
 			<ion-col size="12" size-sm="8" offset-sm="2">
+				<ion-card *ngFor="let request of requests">
+					<ion-card-header>
+						<ion-card-title>{{request.name}}</ion-card-title>
+						<ion-card-subtitle>@{{request.userName}}</ion-card-subtitle>
+					</ion-card-header>
+					<ion-card-content>
+						<p><b>Requested For :</b><br />{{request.requestedUserName}}</p>
+						<p padding-top>
+							<b>Mobile Number :</b><br />
+							{{request.requestedUserMobileNumber}}
+						</p>
+						<div padding-top text-right>
+							<ion-button color="primary" fill="clear" size="small"
+								>Accept</ion-button
+							>
+							<ion-button color="danger" fill="outline" size="small"
+								>Decline</ion-button
+							>
+						</div>
+					</ion-card-content>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+		<!-- <ion-row no-padding>
+			<ion-col size="12" size-sm="8" offset-sm="2">
 				<ion-card>
 					<ion-card-header>
 						<ion-card-title>Baburao Ganpatrao Apte</ion-card-title>
@@ -25,16 +52,10 @@
 							98XXXXXX10
 						</p>
 						<div padding-top text-right>
-							<ion-button
-								color="primary"
-								fill="clear"
-								size="small"
+							<ion-button color="primary" fill="clear" size="small"
 								>Accept</ion-button
 							>
-							<ion-button
-								color="danger"
-								fill="outline"
-								size="small"
+							<ion-button color="danger" fill="outline" size="small"
 								>Decline</ion-button
 							>
 						</div>
@@ -56,16 +77,10 @@
 							98XXXXXX10
 						</p>
 						<div padding-top text-right>
-							<ion-button
-								color="primary"
-								fill="clear"
-								size="small"
+							<ion-button color="primary" fill="clear" size="small"
 								>Accept</ion-button
 							>
-							<ion-button
-								color="danger"
-								fill="outline"
-								size="small"
+							<ion-button color="danger" fill="outline" size="small"
 								>Decline</ion-button
 							>
 						</div>
@@ -87,16 +102,10 @@
 							98XXXXXX10
 						</p>
 						<div padding-top text-right>
-							<ion-button
-								color="primary"
-								fill="clear"
-								size="small"
+							<ion-button color="primary" fill="clear" size="small"
 								>Accept</ion-button
 							>
-							<ion-button
-								color="danger"
-								fill="outline"
-								size="small"
+							<ion-button color="danger" fill="outline" size="small"
 								>Decline</ion-button
 							>
 						</div>
@@ -118,53 +127,16 @@
 							98XXXXXX10
 						</p>
 						<div padding-top text-right>
-							<ion-button
-								color="primary"
-								fill="clear"
-								size="small"
+							<ion-button color="primary" fill="clear" size="small"
 								>Accept</ion-button
 							>
-							<ion-button
-								color="danger"
-								fill="outline"
-								size="small"
+							<ion-button color="danger" fill="outline" size="small"
 								>Decline</ion-button
 							>
 						</div>
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
-		</ion-row>
-		<ion-row no-padding>
-			<ion-col size="12" size-sm="8" offset-sm="2">
-				<ion-card>
-					<ion-card-header>
-						<ion-card-title>Baburao Ganpatrao Apte</ion-card-title>
-						<ion-card-subtitle>@RakhTeriMaaKii</ion-card-subtitle>
-					</ion-card-header>
-					<ion-card-content>
-						<p><b>Requested For :</b><br />Devi Prasad</p>
-						<p padding-top>
-							<b>Mobile Number :</b><br />
-							98XXXXXX10
-						</p>
-						<div padding-top text-right>
-							<ion-button
-								color="primary"
-								fill="clear"
-								size="small"
-								>Accept</ion-button
-							>
-							<ion-button
-								color="danger"
-								fill="outline"
-								size="small"
-								>Decline</ion-button
-							>
-						</div>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
-		</ion-row>
+		</ion-row> -->
 	</ion-grid>
 </ion-content>

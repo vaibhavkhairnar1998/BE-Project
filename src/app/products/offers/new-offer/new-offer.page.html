@@ -1,14 +1,13 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start">
-			<ion-back-button
-				defaultHref="/products/tabs/offers"
-			></ion-back-button>
+			<ion-back-button defaultHref="/offers"></ion-back-button>
 		</ion-buttons>
 		<ion-title>New Offer</ion-title>
 		<ion-buttons slot="primary"> </ion-buttons>
 	</ion-toolbar>
 </ion-header>
+
 <ion-content>
 	<form [formGroup]="form">
 		<ion-grid padding>
@@ -66,10 +65,7 @@
 				<ion-col size-sm="6" offset-sm="3">
 					<ion-item>
 						<ion-label position="floating">Price</ion-label>
-						<ion-input
-							type="number"
-							formControlName="price"
-						></ion-input>
+						<ion-input type="number" formControlName="price"></ion-input>
 					</ion-item>
 				</ion-col>
 			</ion-row>

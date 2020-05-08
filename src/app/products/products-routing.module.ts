@@ -1,79 +1,76 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ProductsPage } from "./products.page";
+import { ProductsPage } from './products.page';
 
 const routes: Routes = [
 	{
-		path: "tabs",
+		path: 'tabs',
 		component: ProductsPage,
 		children: [
 			{
-				path: "discover",
+				path: 'discover',
 				children: [
 					{
-						path: "",
-						loadChildren:
-							"./discover/discover.module#DiscoverPageModule"
+						path: '',
+						loadChildren: './discover/discover.module#DiscoverPageModule'
 					},
 					{
-						path: ":placeId",
+						path: ':placeId',
 						loadChildren:
-							"./discover/product-detail/product-detail.module#PlaceDetailPageModule"
+							'./discover/product-detail/product-detail.module#ProductDetailPageModule'
 					}
 				]
 			},
 			{
-				path: "offers",
+				path: 'offers',
 				children: [
 					{
-						path: "",
-						loadChildren: "./offers/offers.module#OffersPageModule"
+						path: '',
+						loadChildren: './offers/offers.module#OffersPageModule'
 					},
 					{
-						path: "new",
+						path: 'new',
 						loadChildren:
-							"./offers/new-offer/new-offer.module#NewOfferPageModule"
+							'./offers/new-offer/new-offer.module#NewOfferPageModule'
 					},
 					{
-						path: "edit/:placeId",
+						path: 'edit/:placeId',
 						loadChildren:
-							"./offers/edit-offer/edit-offer.module#EditOfferPageModule"
+							'./offers/edit-offer/edit-offer.module#EditOfferPageModule'
 					},
 					{
-						path: ":placeId",
+						path: ':placeId',
 						loadChildren:
-							"./offers/offer-bookings/offer-bookings.module#OfferBookingsPageModule"
+							'./offers/offer-bookings/offer-bookings.module#OfferBookingsPageModule'
 					}
 				]
 			},
 			{
-				path: "",
-				redirectTo: "/products/tabs/discover",
-				pathMatch: "full"
+				path: '',
+				redirectTo: '/products/tabs/discover',
+				pathMatch: 'full'
 			},
 			{
-				path: "requests",
+				path: 'requests',
 				children: [
 					{
-						path: "",
-						loadChildren:
-							"./requests/requests.module#RequestsPageModule"
+						path: '',
+						loadChildren: './requests/requests.module#RequestsPageModule'
 					},
 					{
-						path: ":placeId",
+						path: ':placeId',
 						loadChildren:
-							"./requests/create-request/create-request.module#CreateRequestPageModule"
+							'./requests/create-request/create-request.module#CreateRequestPageModule'
 					}
 				]
 			}
 		]
 	},
-
 	{
-		path: "",
-		redirectTo: "/products/tabs/discover",
-		pathMatch: "full"
+		path: '',
+		redirectTo: '/products/tabs/discover',
+		pathMatch: 'full'
 	}
 ];
 

@@ -13,15 +13,18 @@
 			<ion-col no-padding size="12" size-sm="8" offset-sm="2">
 				<ion-list>
 					<ion-item
-						*ngFor="let request of requests"
-						[routerLink]="['/', 'products', 'tabs', 'requests', request.id]"
+						*ngFor="let requestedProduct of requestedProducts"
+						(click)="onNavigate(requestedProduct)"
 					>
 						<ion-thumbnail slot="start">
 							<div></div>
-							<ion-img [src]="request.imageUrl"></ion-img>
+							<img
+								[src]="requestedProduct.imageUrl"
+								onerror="this.src='../../../assets/default/default-product.jpg';"
+							/>
 						</ion-thumbnail>
 						<ion-label>
-							<h3>{{ request.title }}</h3>
+							<h3>{{ requestedProduct.title }}</h3>
 						</ion-label>
 					</ion-item>
 				</ion-list>

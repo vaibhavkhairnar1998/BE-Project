@@ -1,0 +1,21 @@
+.ion-invalid.ion-touched ion-label {
+	color: var(--ion-color-danger);
+}
+.ion-invalid.item-has-focus ion-label {
+	color: var(--ion-color-danger);
+}
+.ion-touched.ion-valid ion-label {
+	color: var(--ion-color-primary);
+}
+.item-has-focus.ion-valid ion-label {
+	color: var(--ion-color-primary);
+}
+ion-content {
+	--background: linear-gradient(315deg, #81bffd 0%, #037cdead 74%);
+}
+.auth-form-container {
+	margin: 0px 10px;
+	height: 60vh;
+	border-radius: 10px;
+	background-color: #ffffff;
+}

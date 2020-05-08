@@ -1,43 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../product.model';
-import { ProductsService } from '../products.service';
-import { Platform, ModalController, NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
-import { CreateRequestPage } from './create-request/create-request.page';
+import { Platform } from '@ionic/angular';
+
+import { RequestsService } from './requests.service';
+import { RequestedProduct } from './requestedProduct.model';
+import { Subscription } from 'rxjs';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-requests',
-  templateUrl: './requests.page.html',
-  styleUrls: ['./requests.page.scss'],
+	selector: 'app-requests',
+	templateUrl: './requests.page.html',
+	styleUrls: ['./requests.page.scss']
 })
 export class RequestsPage implements OnInit {
-  productSub: any;
-  requests: Product[];
-  backButtonSubscription: any;
+	requestedProductsSub: Subscription;
+	requestedProducts: RequestedProduct[];
+	backButtonSubscription: any;
 
-  constructor(
-    private productsService: ProductsService,
-    private platform: Platform,
-    private route: ActivatedRoute,
-    private navCtrl: NavController,
-    private modalCtrl: ModalController
-  ) { }
+	constructor(
+		private requestsService: RequestsService,
+		private platform: Platform,
+		private router: Router
+	) {}
 
-  ngOnInit() {
-    this.productSub = this.productsService.products.subscribe((product) => {
-    this.requests = product;
-  });
-  }
-  ngAfterViewInit() {
+	ngOnInit() {
+		this.requestedProductsSub = this.requestsService.requestedProducts.subscribe(
+			requestedProducts => {
+				this.requestedProducts = requestedProducts;
+			}
+		);
+	}
+
+	ionViewWillEnter() {
+		this.requestsService.getRequestedProducts().subscribe();
+	}
+
+	onNavigate(requestedProduct: RequestedProduct) {
+		let navigationExtras: NavigationExtras = {
+			queryParams: {
+				productTitle: requestedProduct.title
+			}
+		};
+		this.router.navigate(
+			['/', 'products', 'tabs', 'requests', requestedProduct.id],
+			navigationExtras
+		);
+	}
+
+	ngAfterViewInit() {
 		this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-			navigator["app"].exitApp();
+			navigator['app'].exitApp();
 		});
-  }
-  ngOnDestroy() {
-		if (this.productSub) {
-			this.productSub.unsubscribe();
+	}
+
+	ngOnDestroy() {
+		if (this.requestedProductsSub) {
+			this.requestedProductsSub.unsubscribe();
 		}
-  }
-
-
+	}
 }

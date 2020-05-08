@@ -1,28 +1,28 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
-import { PlaceDetailPage } from "./product-detail.page";
-import { CreateBookingComponent } from "../../../bookings/create-booking/create-booking.component";
+import { ProductDetailPage } from './product-detail.page';
+import { CreateBookingComponent } from '../../../bookings/create-booking/create-booking.component';
 
 const routes: Routes = [
 	{
-		path: "",
-		component: PlaceDetailPage
+		path: '',
+		component: ProductDetailPage
 	}
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
-		FormsModule,
+		ReactiveFormsModule,
 		IonicModule,
 		RouterModule.forChild(routes)
 	],
-	declarations: [PlaceDetailPage, CreateBookingComponent],
+	declarations: [ProductDetailPage, CreateBookingComponent],
 	entryComponents: [CreateBookingComponent]
 })
-export class PlaceDetailPageModule {}
+export class ProductDetailPageModule {}

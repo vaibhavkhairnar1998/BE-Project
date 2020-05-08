@@ -1,11 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ProductsService } from "../../products.service";
-import { LoadingController } from "@ionic/angular";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ProductsService } from '../../products.service';
+import { LoadingController, NavController } from '@ionic/angular';
 
 function base64toBlob(base64Data, contentType) {
-	contentType = contentType || "";
+	contentType = contentType || '';
 	const sliceSize = 1024;
 	const byteCharacters = window.atob(base64Data);
 	const bytesLength = byteCharacters.length;
@@ -26,47 +25,44 @@ function base64toBlob(base64Data, contentType) {
 }
 
 @Component({
-	selector: "app-new-offer",
-	templateUrl: "./new-offer.page.html",
-	styleUrls: ["./new-offer.page.scss"]
+	selector: 'app-new-offer',
+	templateUrl: './new-offer.page.html',
+	styleUrls: ['./new-offer.page.scss'],
 })
 export class NewOfferPage implements OnInit {
 	form: FormGroup;
+
 	constructor(
 		private productService: ProductsService,
 		private loaderCtrl: LoadingController,
-		private router: Router
+		private navCtrl: NavController
 	) {}
 
 	ngOnInit() {
 		this.form = new FormGroup({
 			category: new FormControl(null, {
-				updateOn: "change",
-				validators: [Validators.required]
+				updateOn: 'change',
+				validators: [Validators.required],
 			}),
 			title: new FormControl(null, {
-				updateOn: "change",
-				validators: [Validators.required]
+				updateOn: 'change',
+				validators: [Validators.required],
 			}),
 			description: new FormControl(null, {
-				updateOn: "change",
-				validators: [
-					Validators.required,
-					Validators.maxLength(180),
-					Validators.minLength(10)
-				]
+				updateOn: 'change',
+				validators: [Validators.required, Validators.maxLength(180)],
 			}),
 			price: new FormControl(null, {
-				updateOn: "change",
-				validators: [Validators.required, Validators.min(1)]
+				updateOn: 'change',
+				validators: [Validators.required, Validators.min(1)],
 			}),
-			image: new FormControl(null)
+			image: new FormControl(null),
 		});
 	}
 
 	getCategory(event) {
 		const Value = event.target.value;
-		this.form.get("category").setValue(Value);
+		this.form.get('category').setValue(Value);
 	}
 
 	onCreateOffer() {
@@ -75,7 +71,7 @@ export class NewOfferPage implements OnInit {
 		}
 		this.loaderCtrl
 			.create({
-				message: "Creating New Place..."
+				message: 'Creating New Place...',
 			})
 			.then((loadingEl) => {
 				loadingEl.present();
@@ -84,22 +80,23 @@ export class NewOfferPage implements OnInit {
 						this.form.value.category,
 						this.form.value.title,
 						this.form.value.description,
-						+this.form.value.price //+ sign to convert string into number
+						+this.form.value.price // + sign to convert string into number
 					)
 					.subscribe(() => {
 						loadingEl.dismiss();
 						this.form.reset();
-						this.router.navigate(["/products/tabs/offers"]);
+						this.navCtrl.navigateBack('/products/tabs/offers');
 					});
 			});
 	}
+
 	onImagePicked(imageData: string | File) {
 		let imageFile;
-		if (typeof imageData === "string") {
+		if (typeof imageData === 'string') {
 			try {
 				imageFile = base64toBlob(
-					imageData.replace("data:image/jpeg;base64,", ""),
-					"image/jpeg"
+					imageData.replace('data:image/jpeg;base64,', ''),
+					'image/jpeg'
 				);
 			} catch (error) {
 				console.log(error);

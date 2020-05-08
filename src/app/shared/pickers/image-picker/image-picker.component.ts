@@ -4,24 +4,24 @@ import {
 	Output,
 	EventEmitter,
 	ViewChild,
-	ElementRef
-} from "@angular/core";
+	ElementRef,
+} from '@angular/core';
 import {
 	Plugins,
 	Capacitor,
 	CameraSource,
 	CameraResultType,
-	CameraPhoto
-} from "@capacitor/core";
-import { Platform } from "@ionic/angular";
+	CameraPhoto,
+} from '@capacitor/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
-	selector: "app-image-picker",
-	templateUrl: "./image-picker.component.html",
-	styleUrls: ["./image-picker.component.scss"]
+	selector: 'app-image-picker',
+	templateUrl: './image-picker.component.html',
+	styleUrls: ['./image-picker.component.scss'],
 })
 export class ImagePickerComponent implements OnInit {
-	@ViewChild("filePicker", null) filePickerRef: ElementRef<HTMLInputElement>;
+	@ViewChild('filePicker', null) filePickerRef: ElementRef<HTMLInputElement>;
 	@Output() imagePick = new EventEmitter<string | File>();
 	selectedImage: string;
 	usePicker = false;
@@ -29,21 +29,16 @@ export class ImagePickerComponent implements OnInit {
 	constructor(private platform: Platform) {}
 
 	ngOnInit() {
-		console.log("Mobile:", this.platform.is("mobile"));
-		console.log("Hybrid:", this.platform.is("hybrid"));
-		console.log("iOS:", this.platform.is("ios"));
-		console.log("Android:", this.platform.is("android"));
-		console.log("Desktop:", this.platform.is("desktop"));
 		if (
-			(this.platform.is("mobile") && !this.platform.is("hybrid")) ||
-			this.platform.is("desktop")
+			(this.platform.is('mobile') && !this.platform.is('hybrid')) ||
+			this.platform.is('desktop')
 		) {
 			this.usePicker = true;
 		}
 	}
 
 	onPickImage() {
-		if (!Capacitor.isPluginAvailable("Camera")) {
+		if (!Capacitor.isPluginAvailable('Camera')) {
 			this.filePickerRef.nativeElement.click();
 			return;
 		}
@@ -53,7 +48,7 @@ export class ImagePickerComponent implements OnInit {
 			correctOrientation: true,
 			height: 320,
 			width: 200,
-			resultType: CameraResultType.Base64
+			resultType: CameraResultType.Base64,
 		})
 			.then((image) => {
 				this.selectedImage = image.base64String;

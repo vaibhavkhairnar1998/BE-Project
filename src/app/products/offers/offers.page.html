@@ -22,7 +22,10 @@
 							[routerLink]="['/', 'products', 'tabs', 'offers', offer.id]"
 						>
 							<ion-thumbnail slot="start">
-								<ion-img [src]="offer.imageUrl"></ion-img>
+								<img
+									[src]="offer.imageUrl"
+									onerror="this.src='../../../assets/default/default-product.jpg';"
+								/>
 							</ion-thumbnail>
 							<ion-label>
 								<h3>{{ offer.title }}</h3>
@@ -34,10 +37,7 @@
 								color="danger"
 								(click)="onDelete(offer.id, slidingItem)"
 							>
-								<ion-icon
-									name="trash"
-									slot="icon-only"
-								></ion-icon>
+								<ion-icon name="trash" slot="icon-only"></ion-icon>
 							</ion-item-option>
 						</ion-item-options>
 					</ion-item-sliding>

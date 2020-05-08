@@ -7,6 +7,6 @@ export class Product {
 		public imageUrl: string,
 		public price: number,
 		public userId: string,
-		public isBooked: Boolean
+		public isBooked: boolean
 	) {}
 }

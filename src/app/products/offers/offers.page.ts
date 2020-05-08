@@ -2,26 +2,26 @@ import {
 	Component,
 	OnInit,
 	OnDestroy,
+	ViewChildren,
 	QueryList,
-	ViewChildren
-} from "@angular/core";
+} from '@angular/core';
 
-import { ProductsService } from "../products.service";
-import { Product } from "../product.model";
+import { ProductsService } from '../products.service';
+import { Product } from '../product.model';
 import {
 	IonItemSliding,
+	AlertController,
 	LoadingController,
-	Platform,
 	IonRouterOutlet,
-	AlertController
-} from "@ionic/angular";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+	Platform,
+} from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-	selector: "app-offers",
-	templateUrl: "./offers.page.html",
-	styleUrls: ["./offers.page.scss"]
+	selector: 'app-offers',
+	templateUrl: './offers.page.html',
+	styleUrls: ['./offers.page.scss'],
 })
 export class OffersPage implements OnInit, OnDestroy {
 	offers: Product[];
@@ -38,53 +38,51 @@ export class OffersPage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.productSub = this.productsService.products.subscribe((product) => {
+		this.productSub = this.productsService.myProducts.subscribe((product) => {
 			this.offers = product;
 		});
 	}
 
-	ngAfterViewInit() {
-		this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-			navigator["app"].exitApp();
-		});
+	ionViewWillEnter() {
+		this.productsService.fetchMyProducts().subscribe();
 	}
 
 	onDelete(offerId: String, slidingItem: IonItemSliding) {
 		slidingItem.close();
-
 		this.alertController
 			.create({
-				header: "Are You Sure ?",
-				message: "Want To Delete This Offer",
+				header: 'Are You Sure ?',
+				message: 'Want To Delete This Offer',
 				buttons: [
 					{
-						text: "Cancel",
-						role: "cancel",
-						handler: (blah) => {}
+						text: 'Cancel',
+						role: 'cancel',
+						handler: (blah) => {},
 					},
 					{
-						text: "Delete",
+						text: 'Delete',
 						handler: () => {
-							console.log("Confirm Okay");
 							this.loadingCtrl
-								.create({
-									message: "Cancelling Your Booking..."
-								})
+								.create({ message: 'Cancelling your booking.' })
 								.then((loadingEl) => {
 									loadingEl.present();
-									this.productsService
-										.deleteProduct(offerId)
-										.subscribe(() => {
-											loadingEl.dismiss();
-										});
+									this.productsService.deleteProduct(offerId).subscribe(() => {
+										loadingEl.dismiss();
+									});
 								});
-						}
-					}
-				]
+						},
+					},
+				],
 			})
 			.then((alertEl) => {
 				alertEl.present();
 			});
+	}
+
+	ngAfterViewInit() {
+		this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+			navigator['app'].exitApp();
+		});
 	}
 
 	ngOnDestroy() {

@@ -10,25 +10,26 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+@import '~@ionic/angular/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import "~@ionic/angular/css/display.css";
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
 @font-face {
 	font-family: Montserrat;
-	src: url("../src/assets/fonts/Montserrat-Regular.ttf");
+	src: url('../src/assets/fonts/Montserrat.woff2');
 }
+
 :root {
 	--ion-font-family: Montserrat;
 }
@@ -48,4 +49,27 @@ ion-segment-button {
 }
 ion-thumbnail {
 	--border-radius: 16%;
+}
+
+.auth-form-container {
+	box-shadow: 3px 4px 5px #3a3a3a50;
+}
+
+.auth-form-container ion-item {
+	--background: none;
+}
+
+.header-style {
+	display: inline-block;
+	height: 15vh;
+}
+.header-style h2 {
+	margin-left: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.header-style div {
+	margin-left: 5px;
+	height: 5px;
+	background-color: var(--ion-color-primary);
 }
