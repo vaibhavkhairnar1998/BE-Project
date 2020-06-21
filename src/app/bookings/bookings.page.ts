@@ -8,9 +8,10 @@ import { Booking } from './booking.model';
 @Component({
 	selector: 'app-bookings',
 	templateUrl: './bookings.page.html',
-	styleUrls: ['./bookings.page.scss']
+	styleUrls: ['./bookings.page.scss'],
 })
 export class BookingsPage implements OnInit, OnDestroy {
+	isLoading: boolean = false;
 	loadedBookings: Booking[];
 	private bookingsSub: Subscription;
 
@@ -20,8 +21,10 @@ export class BookingsPage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.bookingsSub = this.bookingservice.bookings.subscribe(bookings => {
+		this.isLoading = true;
+		this.bookingsSub = this.bookingservice.bookings.subscribe((bookings) => {
 			this.loadedBookings = bookings;
+			this.isLoading = false;
 		});
 	}
 
@@ -33,7 +36,7 @@ export class BookingsPage implements OnInit, OnDestroy {
 		slidingEl.close();
 		this.loadingCtrl
 			.create({ message: 'Cancelling Your Booking...' })
-			.then(loadingEl => {
+			.then((loadingEl) => {
 				loadingEl.present();
 				this.bookingservice.cancelBooking(bookingId).subscribe(() => {
 					loadingEl.dismiss();

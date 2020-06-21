@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" text-center>
+	<ion-spinner color="primary"></ion-spinner>
+</div>
+
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start">
@@ -7,7 +11,7 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 	<ion-grid>
 		<ion-row align-items-center>
 			<ion-col
@@ -16,7 +20,7 @@
 				*ngIf="!loadedBookings || loadedBookings.length <= 0"
 				text-center
 				padding
-				style="color: #0000008c"
+				style="color: #0000008c;"
 			>
 				You dont have any current Booking Yet !</ion-col
 			>
@@ -32,28 +36,27 @@
 					>
 						<ion-item>
 							<ion-thumbnail slot="start">
-								<ion-img [src]="booking.imageUrl"></ion-img>
+								<img
+									[src]="booking.imageUrl"
+									onerror="this.src='../../assets/default/default-product.jpg';"
+								/>
 							</ion-thumbnail>
 							<ion-label>
 								<h2>{{ booking.placeTitle }}</h2>
 								<p>
 									Status :
-									<ion-chip outline color="success">
+									<span class="booked" *ngIf="booking.status == 'accept'">
 										<ion-icon name="checkmark"></ion-icon>
 										<ion-label>Booked</ion-label>
-									</ion-chip>
-								</p>
-								<p>
-									<ion-chip outline color="warning">
+									</span>
+									<span class="pending" *ngIf="booking.status == 'pending'">
 										<ion-icon name="time"></ion-icon>
 										<ion-label>Pending</ion-label>
-									</ion-chip>
-								</p>
-								<p>
-									<ion-chip outline color="danger">
+									</span>
+									<span class="denied" *ngIf="booking.status == 'decline'">
 										<ion-icon name="close"></ion-icon>
 										<ion-label>Denied</ion-label>
-									</ion-chip>
+									</span>
 								</p>
 							</ion-label>
 						</ion-item>

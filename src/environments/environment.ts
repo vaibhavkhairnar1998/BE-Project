@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+	production: false,
+	interactiveMapApiKey: 'c4r3n875be482pzxmfsy8e94vc8dbkam',
+	clientId:
+		'Ej20atyPBP6CJzpakABfpyAaBuwZa342-CSzpSHmGqJ1dEaTRr9hDYnhNpnPzTUBkI8TX9E4enGwHbMZtJ5iww==',
+	clientSecret:
+		'ebEc8GH231dE40nOdg6wkei0GNGnXW-15jBoluFVjvmn3lfEwSfj7lx0dshzLBh6wPLcp-v0i_nc51Qj3sWEvTgg33F77j_z',
 };
 
 /*

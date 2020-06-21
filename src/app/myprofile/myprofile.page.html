@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" text-center>
+	<ion-spinner color="primary"></ion-spinner>
+</div>
+
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start">
@@ -7,10 +11,10 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 	<form [formGroup]="form">
 		<ion-grid>
-			<ion-row align-items-center style="height: 25vh" padding-horizontal>
+			<ion-row align-items-center style="height: 25vh;" padding-horizontal>
 				<ion-col size-sm="6" offset-sm="3">
 					<ion-avatar class="avatars">
 						<div (click)="onEditImg($event)">
@@ -38,11 +42,11 @@
 			<ion-row align-items-center padding-horizontal>
 				<ion-col size-sm="6" offset-sm="3">
 					<ion-item>
-						<ion-label position="floating">Email-Id</ion-label>
+						<ion-label position="floating">User Name</ion-label>
 						<ion-input
-							type="email"
+							type="text"
 							autocomplete
-							formControlName="email"
+							formControlName="userName"
 						></ion-input>
 					</ion-item>
 				</ion-col>
@@ -52,9 +56,9 @@
 					<ion-item>
 						<ion-label position="floating">Mobile Number</ion-label>
 						<ion-input
-							type="number"
+							type="tel"
 							autocomplete
-							formControlName="number"
+							formControlName="mobileNumber"
 						></ion-input>
 					</ion-item>
 				</ion-col>
@@ -63,7 +67,8 @@
 				<ion-col style="padding-top: 32px;">
 					<ion-button
 						expand="block"
-						[routerLink]="['/', 'products', 'tabs', 'discover']"
+						(click)="onUpdateProfile()"
+						[disabled]="!form?.valid"
 						>Save</ion-button
 					>
 				</ion-col>

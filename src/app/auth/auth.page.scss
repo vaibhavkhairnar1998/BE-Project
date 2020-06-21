@@ -7,9 +7,11 @@
 .ion-touched.ion-valid ion-label {
 	color: var(--ion-color-primary);
 }
-.item-has-focus.ion-valid ion-label {
+.item-has-focus.ion-valid ion-label,
+.ion-valid.item-has-value ion-label {
 	color: var(--ion-color-primary);
 }
+
 ion-content {
 	--background: linear-gradient(315deg, #81bffd 0%, #037cdead 74%);
 }

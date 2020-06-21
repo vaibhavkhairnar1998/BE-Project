@@ -1,17 +1,22 @@
-#notifications-badge {
-	background-color: primary;
-	position: absolute;
-	top: 21px;
-	right: 21px;
-	border-radius: 100%;
+ion-thumbnail {
+	position: relative;
 }
-ion-item div {
-	height: 13px;
-	width: 13px;
-	background: var(--ion-color-secondary);
-
-	border-radius: 50%;
+.notification-badge {
 	position: absolute;
-	top: 3px;
-	left: 66px;
+	left: 80%;
+	top: -7%;
+	height: 1rem;
+	width: 1rem;
+	background: var(--ion-color-secondary-contrast);
+	border-radius: 50%;
+}
+.notification-badge div {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	height: 75%;
+	width: 75%;
+	border-radius: 50%;
+	background: var(--ion-color-secondary);
 }

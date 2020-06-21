@@ -7,12 +7,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProductDetailPage } from './product-detail.page';
 import { CreateBookingComponent } from '../../../bookings/create-booking/create-booking.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: ProductDetailPage
-	}
+		component: ProductDetailPage,
+	},
 ];
 
 @NgModule({
@@ -20,9 +21,10 @@ const routes: Routes = [
 		CommonModule,
 		ReactiveFormsModule,
 		IonicModule,
-		RouterModule.forChild(routes)
+		SharedModule,
+		RouterModule.forChild(routes),
 	],
 	declarations: [ProductDetailPage, CreateBookingComponent],
-	entryComponents: [CreateBookingComponent]
+	entryComponents: [CreateBookingComponent],
 })
 export class ProductDetailPageModule {}

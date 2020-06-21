@@ -8,6 +8,7 @@ export class Booking {
 		public firstName: string,
 		public lastName: string,
 		public mobileNumber: number,
-		public gender: string
+		public gender: string,
+		public status: string
 	) {}
 }

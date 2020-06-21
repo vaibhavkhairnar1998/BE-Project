@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	OnDestroy,
+	Output,
+	ViewChild,
+	ElementRef,
+	AfterViewInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
 	NavController,
@@ -14,6 +22,8 @@ import { CreateBookingComponent } from '../../../bookings/create-booking/create-
 import { BookingService } from '../../../bookings/booking.service';
 import { AuthService } from '../../../auth/auth.service';
 import { take, switchMap } from 'rxjs/operators';
+import { resolve } from 'url';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-place-detail',

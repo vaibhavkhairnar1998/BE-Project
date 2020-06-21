@@ -1,3 +1,5 @@
+import { ProductLocation } from './product-location.model';
+
 export class Product {
 	constructor(
 		public id: string,
@@ -7,6 +9,7 @@ export class Product {
 		public imageUrl: string,
 		public price: number,
 		public userId: string,
-		public isBooked: boolean
+		public isBooked: string,
+		public location: ProductLocation
 	) {}
 }

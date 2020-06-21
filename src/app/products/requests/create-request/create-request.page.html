@@ -2,7 +2,7 @@
 	<ion-spinner color="primary"></ion-spinner>
 </div>
 
-<ion-header>
+<ion-header *ngIf="!isLoading">
 	<ion-toolbar>
 		<ion-title>{{ productTitle }}</ion-title>
 		<ion-buttons slot="start">
@@ -27,10 +27,18 @@
 							{{request.requestedUserMobileNumber}}
 						</p>
 						<div padding-top text-right>
-							<ion-button color="primary" fill="clear" size="small"
+							<ion-button
+								color="primary"
+								fill="clear"
+								size="small"
+								(click)="onClick($event)"
 								>Accept</ion-button
 							>
-							<ion-button color="danger" fill="outline" size="small"
+							<ion-button
+								color="danger"
+								fill="outline"
+								size="small"
+								(click)="onClick($event)"
 								>Decline</ion-button
 							>
 						</div>

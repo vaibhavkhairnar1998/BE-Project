@@ -9,22 +9,22 @@ const routes: Routes = [
 	{
 		path: 'products',
 		loadChildren: './products/products.module#ProductsPageModule',
-		canLoad: [AuthGuard]
+		canLoad: [AuthGuard],
 	},
 	{
 		path: 'bookings',
 		loadChildren: './bookings/bookings.module#BookingsPageModule',
-		canLoad: [AuthGuard]
+		canLoad: [AuthGuard],
 	},
 	{
 		path: 'myprofile',
 		loadChildren: './myprofile/myprofile.module#MyprofilePageModule',
-		canLoad: [AuthGuard]
-	}
+		canLoad: [AuthGuard],
+	},
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

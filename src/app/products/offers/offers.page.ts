@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./offers.page.scss'],
 })
 export class OffersPage implements OnInit, OnDestroy {
+	isLoading: boolean = false;
 	offers: Product[];
 	private productSub: Subscription;
 	backButtonSubscription;
@@ -38,8 +39,10 @@ export class OffersPage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.productSub = this.productsService.myProducts.subscribe((product) => {
 			this.offers = product;
+			this.isLoading = false;
 		});
 	}
 

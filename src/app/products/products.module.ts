@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
-import { ProductsPage } from "./products.page";
-import { ProductsRoutingModule } from "./products-routing.module";
+import { ProductsPage } from './products.page';
+import { ProductsRoutingModule } from './products-routing.module';
 
 @NgModule({
 	imports: [CommonModule, IonicModule, ProductsRoutingModule],
-	declarations: [ProductsPage]
+	declarations: [ProductsPage],
 })
 export class ProductsPageModule {}

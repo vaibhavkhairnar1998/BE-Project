@@ -10,9 +10,10 @@ import { Router, NavigationExtras } from '@angular/router';
 @Component({
 	selector: 'app-discover',
 	templateUrl: './discover.page.html',
-	styleUrls: ['./discover.page.scss']
+	styleUrls: ['./discover.page.scss'],
 })
 export class DiscoverPage implements OnInit, OnDestroy {
+	isLoading: boolean = false;
 	loadedProducts: Product[];
 	allProducts: Product[];
 	private productsSub: Subscription;
@@ -24,11 +25,13 @@ export class DiscoverPage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.productsSub = this.productsService.products.subscribe(product => {
+		this.isLoading = true;
+		this.productsSub = this.productsService.products.subscribe((product) => {
 			this.loadedProducts = product;
 			this.allProducts = this.loadedProducts.filter(
-				place => place.category === 'Place'
+				(place) => place.category === 'Place'
 			);
+			this.isLoading = false;
 		});
 		// this.loadedProducts = this.productsService.products;
 	}
@@ -40,8 +43,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
 	onNavigate(product: Product) {
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
-				productTitle: product.title
-			}
+				productTitle: product.title,
+			},
 		};
 		this.router.navigate(
 			['/', 'products', 'tabs', 'discover', product.id],
@@ -56,17 +59,17 @@ export class DiscoverPage implements OnInit, OnDestroy {
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		if (event.detail.value === 'Place') {
 			this.allProducts = this.loadedProducts.filter(
-				place => place.category === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 		if (event.detail.value === 'Electronic') {
 			this.allProducts = this.loadedProducts.filter(
-				place => place.category === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 		if (event.detail.value === 'Automobile') {
 			this.allProducts = this.loadedProducts.filter(
-				place => place.category === event.detail.value
+				(place) => place.category === event.detail.value
 			);
 		}
 	}

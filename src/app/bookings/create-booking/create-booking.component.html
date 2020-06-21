@@ -37,32 +37,15 @@
 				</ion-col>
 			</ion-row>
 			<ion-row>
-				<ion-col padding size-sm="6" offset-sm="3">
-					<ion-list>
-						<ion-radio-group
-							allow-empty-selection="false"
-							(ionSelect)="getGender($event)"
-						>
-							<ion-list-header>
-								<ion-label>Gender</ion-label>
-							</ion-list-header>
-
-							<ion-item>
-								<ion-label>Male</ion-label>
-								<ion-radio value="male"></ion-radio>
-							</ion-item>
-
-							<ion-item>
-								<ion-label>Female</ion-label>
-								<ion-radio value="female"></ion-radio>
-							</ion-item>
-
-							<ion-item>
-								<ion-label>Others</ion-label>
-								<ion-radio value="others"></ion-radio>
-							</ion-item>
-						</ion-radio-group>
-					</ion-list>
+				<ion-col size-sm="6" offset-sm="3">
+					<ion-item>
+						<ion-label>Gender</ion-label>
+						<ion-select slot="end" interface="popover" formControlName="gender">
+							<ion-select-option value="male">Male</ion-select-option>
+							<ion-select-option value="female">Female</ion-select-option>
+							<ion-select-option value="others">Others</ion-select-option>
+						</ion-select>
+					</ion-item>
 				</ion-col>
 			</ion-row>
 		</ion-grid>

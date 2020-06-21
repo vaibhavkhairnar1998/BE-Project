@@ -15,6 +15,7 @@ interface BookingResData {
 	mobileNumber: number;
 	gender: string;
 	userId: string;
+	status: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -30,13 +31,13 @@ export class BookingService {
 	fetchBooking() {
 		return this.authService.token.pipe(
 			take(1),
-			switchMap(token => {
+			switchMap((token) => {
 				return this.http.get<BookingResData[]>(
 					'http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/orders',
 					{ headers: { Authorization: 'Bearer ' + token } }
 				);
 			}),
-			switchMap(resData => {
+			switchMap((resData) => {
 				const myBookings = [];
 				for (const index in resData) {
 					myBookings.push(
@@ -49,13 +50,14 @@ export class BookingService {
 							resData[index].firstName,
 							resData[index].lastName,
 							resData[index].mobileNumber,
-							resData[index].gender
+							resData[index].gender,
+							resData[index].product.isBooked
 						)
 					);
 				}
 				return of(myBookings);
 			}),
-			tap(myBookings => {
+			tap((myBookings) => {
 				this._bookings.next(myBookings);
 			})
 		);
@@ -71,7 +73,7 @@ export class BookingService {
 		let newBooking: Booking;
 		return this.authService.token.pipe(
 			take(1),
-			switchMap(token => {
+			switchMap((token) => {
 				return this.http.post<BookingResData>(
 					'http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/orders',
 					{
@@ -79,12 +81,12 @@ export class BookingService {
 						firstName: firstName,
 						lastName: lastName,
 						mobileNumber: mobileNumber,
-						gender: gender
+						gender: gender,
 					},
 					{ headers: { Authorization: 'Bearer ' + token } }
 				);
 			}),
-			switchMap(resData => {
+			switchMap((resData) => {
 				newBooking = new Booking(
 					resData._id,
 					resData.product.id,
@@ -94,12 +96,13 @@ export class BookingService {
 					resData.firstName,
 					resData.lastName,
 					resData.mobileNumber,
-					resData.gender
+					resData.gender,
+					resData.product.isBooked
 				);
 				return this.bookings;
 			}),
 			take(1),
-			tap(bookings => {
+			tap((bookings) => {
 				this._bookings.next(bookings.concat(newBooking));
 			})
 		);
@@ -108,7 +111,7 @@ export class BookingService {
 	cancelBooking(bookingId: string) {
 		return this.authService.token.pipe(
 			take(1),
-			switchMap(token => {
+			switchMap((token) => {
 				return this.http.delete(
 					`http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/orders/${bookingId}`,
 					{ headers: { Authorization: 'Bearer ' + token } }
@@ -118,8 +121,8 @@ export class BookingService {
 				return this.bookings;
 			}),
 			take(1),
-			tap(bookings => {
-				this._bookings.next(bookings.filter(b => b.id !== bookingId));
+			tap((bookings) => {
+				this._bookings.next(bookings.filter((b) => b.id !== bookingId));
 			})
 		);
 	}

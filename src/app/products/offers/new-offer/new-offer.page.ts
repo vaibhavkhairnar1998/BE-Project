@@ -1,7 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+	LoadingController,
+	NavController,
+	IonSlides,
+	ModalController,
+} from '@ionic/angular';
+
 import { ProductsService } from '../../products.service';
-import { LoadingController, NavController } from '@ionic/angular';
+import { MapComponent } from 'src/app/shared/map/map.component';
+import { ProductLocation } from '../../product-location.model';
 
 function base64toBlob(base64Data, contentType) {
 	contentType = contentType || '';
@@ -31,11 +39,14 @@ function base64toBlob(base64Data, contentType) {
 })
 export class NewOfferPage implements OnInit {
 	form: FormGroup;
+	@ViewChild(IonSlides, null) slides: IonSlides;
+	slideOpts = { allowTouchMove: false };
 
 	constructor(
 		private productService: ProductsService,
 		private loaderCtrl: LoadingController,
-		private navCtrl: NavController
+		private navCtrl: NavController,
+		private modalCtrl: ModalController
 	) {}
 
 	ngOnInit() {
@@ -56,38 +67,13 @@ export class NewOfferPage implements OnInit {
 				updateOn: 'change',
 				validators: [Validators.required, Validators.min(1)],
 			}),
+			location: new FormControl(null, { validators: [Validators.required] }),
 			image: new FormControl(null),
 		});
 	}
 
-	getCategory(event) {
-		const Value = event.target.value;
-		this.form.get('category').setValue(Value);
-	}
-
-	onCreateOffer() {
-		if (!this.form.valid) {
-			return;
-		}
-		this.loaderCtrl
-			.create({
-				message: 'Creating New Place...',
-			})
-			.then((loadingEl) => {
-				loadingEl.present();
-				this.productService
-					.addProduct(
-						this.form.value.category,
-						this.form.value.title,
-						this.form.value.description,
-						+this.form.value.price // + sign to convert string into number
-					)
-					.subscribe(() => {
-						loadingEl.dismiss();
-						this.form.reset();
-						this.navCtrl.navigateBack('/products/tabs/offers');
-					});
-			});
+	onLocationPicked(location: ProductLocation) {
+		this.form.patchValue({ location: location });
 	}
 
 	onImagePicked(imageData: string | File) {
@@ -106,5 +92,47 @@ export class NewOfferPage implements OnInit {
 			imageFile = imageData;
 		}
 		this.form.patchValue({ image: imageFile });
+	}
+
+	onCreateOffer() {
+		if (!this.form.valid) {
+			return;
+		}
+		this.loaderCtrl
+			.create({
+				message: 'Creating New Place...',
+			})
+			.then((loadingEl) => {
+				loadingEl.present();
+				this.productService
+					.addProduct(
+						this.form.value.category,
+						this.form.value.title,
+						this.form.value.description,
+						+this.form.value.price, // + sign to convert string into number
+						this.form.value.location
+					)
+					.subscribe(() => {
+						loadingEl.dismiss();
+						this.form.reset();
+						this.navCtrl.navigateBack('/products/tabs/offers');
+					});
+			});
+	}
+
+	async nextStep() {
+		await this.slides.slideNext();
+	}
+
+	async prevStep() {
+		await this.slides.slidePrev();
+	}
+
+	validateDetailForm(): boolean {
+		for (let control in this.form.controls) {
+			if (!(control === 'location' || control === 'image'))
+				if (this.form.controls[control].status === 'INVALID') return true;
+		}
+		return false;
 	}
 }

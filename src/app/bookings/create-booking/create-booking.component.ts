@@ -34,11 +34,11 @@ export class CreateBookingComponent implements OnInit {
 					Validators.minLength(10),
 				],
 			}),
+			gender: new FormControl(null, {
+				updateOn: 'change',
+				validators: [Validators.required],
+			}),
 		});
-	}
-
-	getGender(event) {
-		this.Value = event.target.value;
 	}
 
 	onCancel() {
@@ -52,7 +52,7 @@ export class CreateBookingComponent implements OnInit {
 					firstName: this.form.value.firstName,
 					lastName: this.form.value.lastName,
 					mobileNumber: this.form.value.mobileNumber,
-					gender: this.Value,
+					gender: this.form.value.gender,
 				},
 			},
 			'confirm'

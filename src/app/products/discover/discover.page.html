@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" text-center>
+	<ion-spinner color="primary"></ion-spinner>
+</div>
+
 <ion-header>
 	<ion-grid no-padding>
 		<ion-row>
@@ -36,22 +40,21 @@
 	</ion-grid>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 	<ion-grid no-padding>
-		<ion-row>
+		<ion-row no-padding *ngIf="allProducts.length > 0">
 			<ion-col
 				size-md="6"
 				offset-md="3"
 				*ngIf="!allProducts || allProducts.length <= 0"
 				text-center
 				padding
+				style="color: #0000008c;"
 			>
-				There are No Offers Yet !</ion-col
+				You dont have any current Requests Yet !</ion-col
 			>
-		</ion-row>
-		<ion-row no-padding *ngFor="let place of allProducts">
-			<ion-col size="12" size-sm="8" offset-sm="2">
-				<ion-card (click)="onNavigate(place)">
+			<ion-col size="12" size-sm="8" offset-sm="2" no-padding>
+				<ion-card (click)="onNavigate(place)" *ngFor="let place of allProducts">
 					<ion-card-header>
 						<ion-card-title>{{ place.title }}</ion-card-title>
 						<ion-card-subtitle

@@ -1,3 +1,8 @@
+ion-card {
+	border: 1px solid rgba(0, 0, 0, 0.205);
+	box-shadow: none;
+}
+
 .ion-invalid.ion-touched ion-label {
 	color: var(--ion-color-danger);
 }
@@ -7,6 +12,7 @@
 .ion-touched.ion-valid ion-label {
 	color: var(--ion-color-primary);
 }
-.item-has-focus.ion-valid ion-label {
+.item-has-focus.ion-valid ion-label,
+.ion-valid.item-has-value ion-label {
 	color: var(--ion-color-primary);
 }

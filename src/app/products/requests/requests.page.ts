@@ -9,9 +9,10 @@ import { NavigationExtras, Router } from '@angular/router';
 @Component({
 	selector: 'app-requests',
 	templateUrl: './requests.page.html',
-	styleUrls: ['./requests.page.scss']
+	styleUrls: ['./requests.page.scss'],
 })
 export class RequestsPage implements OnInit {
+	isLoading: boolean = false;
 	requestedProductsSub: Subscription;
 	requestedProducts: RequestedProduct[];
 	backButtonSubscription: any;
@@ -23,9 +24,11 @@ export class RequestsPage implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.requestedProductsSub = this.requestsService.requestedProducts.subscribe(
-			requestedProducts => {
+			(requestedProducts) => {
 				this.requestedProducts = requestedProducts;
+				this.isLoading = false;
 			}
 		);
 	}
@@ -37,8 +40,8 @@ export class RequestsPage implements OnInit {
 	onNavigate(requestedProduct: RequestedProduct) {
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
-				productTitle: requestedProduct.title
-			}
+				productTitle: requestedProduct.title,
+			},
 		};
 		this.router.navigate(
 			['/', 'products', 'tabs', 'requests', requestedProduct.id],

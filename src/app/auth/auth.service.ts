@@ -1,17 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, take, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { Plugins } from '@capacitor/core';
 
 import { User } from './user.model';
+import { Profile } from './profile.model';
 
 interface AuthResData {
 	message: string;
 	userId: string;
-	name: string;
-	userName: string;
-	mobileNumber: number;
 	email: string;
 	token: string;
 	tokenExpirationTime: number;
@@ -20,7 +18,7 @@ interface AuthResData {
 }
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
 	private _user = new BehaviorSubject<User>(null);
@@ -28,7 +26,7 @@ export class AuthService implements OnDestroy {
 
 	get userIsAuthenticated() {
 		return this._user.asObservable().pipe(
-			map(user => {
+			map((user) => {
 				if (!user) return false;
 				else return !!user.token;
 			})
@@ -37,7 +35,7 @@ export class AuthService implements OnDestroy {
 
 	get userId() {
 		return this._user.asObservable().pipe(
-			map(user => {
+			map((user) => {
 				if (!user) return null;
 				else return user.id;
 			})
@@ -46,7 +44,7 @@ export class AuthService implements OnDestroy {
 
 	get token() {
 		return this._user.asObservable().pipe(
-			map(user => {
+			map((user) => {
 				if (!user) return null;
 				else return user.token;
 			})
@@ -57,13 +55,10 @@ export class AuthService implements OnDestroy {
 
 	autoLogin() {
 		return from(Plugins.Storage.get({ key: 'authData' })).pipe(
-			map(storedData => {
+			map((storedData) => {
 				if (!storedData || !storedData.value) return null;
 				const parsedData = JSON.parse(storedData.value) as {
 					userId: string;
-					name: string;
-					userName: string;
-					mobileNumber: number;
 					email: string;
 					token: string;
 					tokenExpirationTime: string;
@@ -77,9 +72,6 @@ export class AuthService implements OnDestroy {
 				if (tokenExpirationDate <= new Date()) return null;
 				const user = new User(
 					parsedData.userId,
-					parsedData.name,
-					parsedData.userName,
-					parsedData.mobileNumber,
 					parsedData.email,
 					parsedData.token,
 					tokenExpirationDate,
@@ -88,13 +80,13 @@ export class AuthService implements OnDestroy {
 				);
 				return user;
 			}),
-			tap(user => {
+			tap((user) => {
 				if (user) {
 					this._user.next(user);
 					this.autoLogout(user.tokenDuration);
 				}
 			}),
-			map(user => {
+			map((user) => {
 				return !!user;
 			})
 		);
@@ -106,11 +98,11 @@ export class AuthService implements OnDestroy {
 				'http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/users/login',
 				{
 					email: email,
-					password: password
+					password: password,
 				}
 			)
 			.pipe(
-				tap(userData => {
+				tap((userData) => {
 					const tokenExpirationDate = new Date(
 						new Date().getTime() + userData.tokenExpirationTime * 1000
 					);
@@ -119,9 +111,6 @@ export class AuthService implements OnDestroy {
 					);
 					const user = new User(
 						userData.userId,
-						userData.name,
-						userData.userName,
-						userData.mobileNumber,
 						userData.email,
 						userData.token,
 						tokenExpirationDate,
@@ -132,9 +121,6 @@ export class AuthService implements OnDestroy {
 					this.autoLogout(user.tokenDuration);
 					this.storeAuthData(
 						userData.userId,
-						userData.name,
-						userData.userName,
-						userData.mobileNumber,
 						userData.email,
 						userData.token,
 						tokenExpirationDate.toISOString(),
@@ -172,34 +158,28 @@ export class AuthService implements OnDestroy {
 				userName,
 				mobileNumber,
 				email,
-				password
+				password,
 			}
 		);
 	}
 
 	private storeAuthData(
 		userId: string,
-		name: string,
-		userName: string,
-		mobileNumber: number,
 		email: string,
 		token: string,
 		tokenExpirationTime: string,
 		refreshToken: string,
 		refreshTokenExpirationTime: string
 	) {
-		const data = JSON.stringify({
+		const authData = JSON.stringify({
 			userId: userId,
-			name: name,
-			userName: userName,
-			mobileNumber: mobileNumber,
 			email: email,
 			token: token,
 			tokenExpirationTime: tokenExpirationTime,
 			refreshToken: refreshToken,
-			refreshTokenExpirationTime: refreshTokenExpirationTime
+			refreshTokenExpirationTime: refreshTokenExpirationTime,
 		});
-		Plugins.Storage.set({ key: 'authData', value: data });
+		Plugins.Storage.set({ key: 'authData', value: authData });
 	}
 
 	ngOnDestroy() {

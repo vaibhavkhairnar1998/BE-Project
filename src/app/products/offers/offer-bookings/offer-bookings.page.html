@@ -16,7 +16,7 @@
 		<ion-row>
 			<ion-col no-padding>
 				<ion-card>
-					<ion-img
+					<img
 						[src]="product.imageUrl"
 						style="
 							width: 100%;
@@ -30,7 +30,8 @@
 							-ms-flex-direction: column;
 							flex-direction: column;
 						"
-					></ion-img>
+						onerror="this.src='../../../assets/default/default-product.jpg';"
+					/>
 				</ion-card>
 			</ion-col>
 		</ion-row>

@@ -58,17 +58,17 @@ export class EditOfferPage implements OnInit, OnDestroy {
 	onUpdateOffer() {
 		this.loadingCtrl
 			.create({
-				message: 'Updating Product...',
+				message: 'Updating Product.',
 			})
 			.then((loadingEl) => {
 				loadingEl.present();
+				const productData = JSON.stringify([
+					{ propName: 'title', value: this.form.value.title },
+					{ propName: 'description', value: this.form.value.description },
+					{ propName: 'price', value: this.form.value.price },
+				]);
 				this.productsService
-					.updateProduct(
-						this.product.id,
-						this.form.value.title,
-						this.form.value.description,
-						this.form.value.price
-					)
+					.updateProduct(this.product.id, productData)
 					.subscribe(() => {
 						loadingEl.dismiss();
 						this.form.reset();

@@ -1,0 +1,47 @@
+.booked,
+.pending,
+.denied {
+	border: 1px solid;
+	border-radius: 50px;
+	height: 1.6rem;
+	width: 35%;
+	display: inline-flex;
+	align-items: center;
+}
+
+.booked ion-icon,
+.pending ion-icon,
+.denied ion-icon {
+	padding-left: 0.6rem;
+	padding-right: 0.2rem;
+}
+
+.booked ion-label,
+.pending ion-label,
+.denied ion-label {
+	font-size: 0.9rem;
+}
+
+.booked {
+	border-color: var(--ion-color-success);
+}
+.booked ion-icon,
+.booked ion-label {
+	color: var(--ion-color-success);
+}
+
+.pending {
+	border-color: var(--ion-color-warning);
+}
+.pending ion-icon,
+.pending ion-label {
+	color: var(--ion-color-warning);
+}
+
+.denied {
+	border-color: var(--ion-color-danger);
+}
+.denied ion-icon,
+.denied ion-label {
+	color: var(--ion-color-danger);
+}

@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { take, map, tap, switchMap, delay } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { take, map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, of } from 'rxjs';
 
 import { Product } from './product.model';
 import { AuthService } from '../auth/auth.service';
+import { environment } from '../../environments/environment';
+import { resolve } from 'url';
+import { ProductLocation } from './product-location.model';
 
 interface ProductResData {
 	_id: string;
 	category: string;
 	description: string;
-	isBooked: boolean;
+	isBooked: string;
 	price: number;
 	title: string;
 	userId: string;
+	location: ProductLocation;
 }
 
 @Injectable({
@@ -168,7 +172,8 @@ export class ProductsService {
 							'https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/positive-1521334_960_720-x640.jpg?rPgOxnVWANCxIs2RPpsbLVgAiUNwvzA6',
 							resData[index].price,
 							resData[index].userId,
-							resData[index].isBooked
+							resData[index].isBooked,
+							resData[index].location
 						)
 					);
 				}
@@ -201,7 +206,8 @@ export class ProductsService {
 							'https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/positive-1521334_960_720-x640.jpg?rPgOxnVWANCxIs2RPpsbLVgAiUNwvzA6',
 							resData[index].price,
 							resData[index].userId,
-							resData[index].isBooked
+							resData[index].isBooked,
+							resData[index].location
 						)
 					);
 				}
@@ -231,7 +237,8 @@ export class ProductsService {
 					'https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/positive-1521334_960_720-x640.jpg?rPgOxnVWANCxIs2RPpsbLVgAiUNwvzA6',
 					product.price,
 					product.userId,
-					product.isBooked
+					product.isBooked,
+					product.location
 				);
 			})
 		);
@@ -241,7 +248,8 @@ export class ProductsService {
 		category: string,
 		title: string,
 		description: string,
-		price: number
+		price: number,
+		location: ProductLocation
 	) {
 		let newProduct: Product;
 		return this.authService.token.pipe(
@@ -254,6 +262,7 @@ export class ProductsService {
 						title: title,
 						description: description,
 						price: price,
+						location: location,
 					},
 					{ headers: { Authorization: 'Bearer ' + token } }
 				);
@@ -267,7 +276,8 @@ export class ProductsService {
 					'https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/positive-1521334_960_720-x640.jpg?rPgOxnVWANCxIs2RPpsbLVgAiUNwvzA6',
 					resData.price,
 					resData.userId,
-					resData.isBooked
+					resData.isBooked,
+					resData.location
 				);
 				return this.myProducts;
 			}),
@@ -278,18 +288,30 @@ export class ProductsService {
 		);
 	}
 
-	updateProduct(
-		productId: string,
-		title: string,
-		description: string,
-		price: number
-	) {
-		let updatedProduct: Product[];
-		let fetchedToken: string;
+	updateProduct(productId: string, productData: string) {
+		let updatedProduct: Product = null;
 		return this.authService.token.pipe(
 			take(1),
 			switchMap((token) => {
-				fetchedToken = token;
+				const updateOps = JSON.parse(productData);
+				return this.http.patch<ProductResData>(
+					`http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/products/${productId}`,
+					updateOps,
+					{ headers: { Authorization: 'Bearer ' + token } }
+				);
+			}),
+			switchMap((product) => {
+				updatedProduct = new Product(
+					product._id,
+					product.category,
+					product.title,
+					product.description,
+					'https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201909/positive-1521334_960_720-x640.jpg?rPgOxnVWANCxIs2RPpsbLVgAiUNwvzA6',
+					product.price,
+					product.userId,
+					product.isBooked,
+					product.location
+				);
 				return this.myProducts;
 			}),
 			take(1),
@@ -297,30 +319,13 @@ export class ProductsService {
 				if (!products || products.length <= 0) return this.fetchMyProducts();
 				else return of(products);
 			}),
-			switchMap((products) => {
+			tap((products) => {
 				const updatedProductIndex = products.findIndex(
 					(pl) => pl.id === productId
 				);
-				updatedProduct = [...products];
-				const oldProduct = updatedProduct[updatedProductIndex];
-				updatedProduct[updatedProductIndex] = new Product(
-					oldProduct.id,
-					oldProduct.category,
-					title,
-					description,
-					oldProduct.imageUrl,
-					price,
-					oldProduct.userId,
-					oldProduct.isBooked
-				);
-				return this.http.patch<ProductResData>(
-					`http://localhost:5001/sample-firebase-project-5118d/us-central1/app/api/products/${productId}`,
-					updatedProduct[updatedProductIndex],
-					{ headers: { Authorization: 'Bearer ' + fetchedToken } }
-				);
-			}),
-			tap(() => {
-				this._myProducts.next(updatedProduct);
+				const updatedProducts = [...products];
+				updatedProducts[updatedProductIndex] = updatedProduct;
+				this._myProducts.next(updatedProducts);
 			})
 		);
 	}
